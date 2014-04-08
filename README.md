@@ -1,6 +1,6 @@
 Radiost*r
 =========
-A distribution system and protocol for music playlist data.
+A transmission system and protocol for music playlist data.
 
 
 

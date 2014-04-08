@@ -8,6 +8,7 @@ obj
 _DansNotes.txt
 *.user
 *.sln.docstates
+Readme.html
 
 # Build results
 [Dd]ebug/
