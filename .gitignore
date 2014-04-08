@@ -3,6 +3,9 @@
 
 # User-specific files
 *.suo
+bin
+obj
+_DansNotes.txt
 *.user
 *.sln.docstates
 
