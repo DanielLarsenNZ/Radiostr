@@ -1,40 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using Radiostr.Helpers;
+using Radiostr.Model;
+using Radiostr.Services;
 
 namespace Radiostr.Web.Controllers
 {
     public class StationController : ApiController
     {
+        private readonly IStationService _service = StationService.CreateStationService();
+
         // GET api/station
-        public IEnumerable<string> Get()
+        public IEnumerable<Station> Get()
         {
-            //return new string[] { "value1", "value2" };
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         // GET api/station/5
-        public string Get(int id)
+        public Station Get(int id)
         {
-            return "value";
+            return _service.Get(id);
         }
 
         // POST api/station
-        public void Post([FromBody]string value)
+        public int Post([FromBody]Station station)
         {
+            return _service.Create(station);
         }
 
         // PUT api/station/5
-        public void Put(int id, [FromBody]string value)
+        public void Put([FromBody]Station station)
         {
+            _service.Update(station);
         }
 
         // DELETE api/station/5
         public void Delete(int id)
         {
+            _service.Delete(id);
         }
     }
 }

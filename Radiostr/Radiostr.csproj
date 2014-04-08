@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\ISecurityHelper.cs" />
+    <Compile Include="Helpers\MockSecurityHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Model\Station.cs" />
     <Compile Include="Model\Track.cs" />

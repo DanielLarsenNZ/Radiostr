@@ -1,4 +1,5 @@
 ﻿using System;
+using Radiostr.Data;
 using Radiostr.Model;
 using Radiostr.Helpers;
 using Radiostr.Repositories;
@@ -50,6 +51,14 @@ namespace Radiostr.Services
             _securityHelper.Authenticate();
 
             _repository.Delete(id);
+        }
+
+        /// <summary>
+        /// Public factory method, in lieu of IoC.
+        /// </summary>
+        public static StationService CreateStationService()
+        {
+            return new StationService(new MockSecurityHelper(), new Repository<Station>(new RadiostrDbConnection()));
         }
     }
 }
