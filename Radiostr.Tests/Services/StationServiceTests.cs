@@ -15,22 +15,6 @@ namespace Radiostr.Tests.Services
     {
         [TestMethod]
         [TestCategory("integration")]
-        public void BigCrudTest()
-        {
-            var mockSecurityHelper = new Mock<ISecurityHelper>();
-            var repository = new Repository<Station>(new RadiostrDbConnection());
-            var service = new StationService(mockSecurityHelper.Object, repository);
-
-            // Act
-            int id = service.Create(new Station{Name = "Test Station 1", WhenCreated = DateTime.Now, StationOwnerId = 1});
-            Trace.WriteLine("Id = " + id);
-            var station = service.Get(id);
-            service.Update(station);
-            service.Delete(id);
-        }
-
-        [TestMethod]
-        [TestCategory("integration")]
         public void BigCrudTestWithGenericService()
         {
             var mockSecurityHelper = new Mock<ISecurityHelper>();

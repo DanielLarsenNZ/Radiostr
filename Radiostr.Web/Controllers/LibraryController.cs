@@ -2,7 +2,7 @@
 
 namespace Radiostr.Web.Controllers
 {
-    public class StationController : RadiostrController<Station>
+    public class LibraryController : RadiostrController<Library>
     {
     }
 }

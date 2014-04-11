@@ -28,7 +28,7 @@ namespace Radiostr.Web.Tests.Controllers
             var controller = new StationController();
 
             // Act
-            var id = controller.Post(new Station {Name = "New test Station"});
+            var id = controller.Post(new Station {Name = "New test Station", WhenCreated = DateTime.Now, StationOwnerId = 1});
             Trace.WriteLine("id = " + id);
             var station = controller.Get(id);
             controller.Put(station);
