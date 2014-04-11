@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Radiostr.Model
 {
-    public class Station
+    public class Library
     {
-        [Key]
         public int Id { get; set; }
 
         [MaxLength(50)]
@@ -17,13 +16,6 @@ namespace Radiostr.Model
         
         public DateTime WhenCreated { get; set; }
         
-        [Url]
-        public string Url { get; set; }
-        
-//        [Association("StationOwner", "StationOwnerId", "Id")]
-//        public User StationOwner { get; set; }
-
-        [Required]
-        public int StationOwnerId { get; set; }
+        public int StationId { get; set; }
     }
 }

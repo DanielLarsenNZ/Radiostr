@@ -3,6 +3,11 @@ Radiost*r
 A transmission system and protocol for music playlist data.
 
 
+Setup
+-----
+Run "Create Radiostr DB.sql" to create LocalDB.
+
+
 
 API (WIP)
 ---------
@@ -18,10 +23,6 @@ Model (WIP)
 *User*
 + Entity
 + Mutable
-
-*UserStation*
-+ Value
-+ Immutable
 
 *Station*
 + Entity

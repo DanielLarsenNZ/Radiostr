@@ -65,13 +65,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Radiostr.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Radiostr_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Radiostr.mdf</DependentUpon>
-    </Content>
     <Content Include="Sql\dbo.Station.sql" />
   </ItemGroup>
   <ItemGroup>
