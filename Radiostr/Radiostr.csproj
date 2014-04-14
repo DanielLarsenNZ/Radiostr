@@ -55,11 +55,12 @@
     <Compile Include="Model\PlayerMessage.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RadiostrRepository.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService.cs" />
-    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\LibraryService.cs" />
+    <Compile Include="Services\RadiostrService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

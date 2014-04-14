@@ -17,7 +17,7 @@ namespace Radiostr.Web.Tests.Controllers
             var controller = new StationController();
 
             // Act
-            controller.Get();
+            controller.Get(new {});
         }
 
         [TestMethod]
@@ -32,7 +32,8 @@ namespace Radiostr.Web.Tests.Controllers
             Trace.WriteLine("id = " + id);
             var station = controller.Get(id);
             controller.Put(station);
-            controller.Delete(id);
+            station = controller.Get(id);
+            controller.Delete(station);
         }
 
     }

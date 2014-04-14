@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
+using Dapper;
 using DapperExtensions;
 using Radiostr.Data;
 
 namespace Radiostr.Repositories
 {
-    internal class Repository<T> : IRepository<T> where T:class
+    internal class RadiostrRepository<T> : IRepository<T> where T:class
     {
-        internal Repository(IRadiostrDbConnection db)
+        internal RadiostrRepository(IRadiostrDbConnection db)
         {
             _db = db;
         }
 
-        private readonly IRadiostrDbConnection _db;
+        readonly IRadiostrDbConnection _db;
 
         public int Create(T entity)
         {
@@ -38,12 +39,12 @@ namespace Radiostr.Repositories
             }
         }
 
-        public IEnumerable<T> GetList(string sql)
+        public IEnumerable<T> GetList(string sql, object param)
         {
             using (var conn = _db.GetDbConnection())
             {
                 conn.Open();
-                var entities = conn.Get<IEnumerable<T>>(sql);
+                var entities = conn.Query<T>(sql, param);
                 conn.Close();
                 return entities;
             }
@@ -59,12 +60,12 @@ namespace Radiostr.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(T entity)
         {
             using (var conn = _db.GetDbConnection())
             {
                 conn.Open();
-                conn.Delete<T>(id);
+                conn.Delete(entity);
                 conn.Close();
             }
         }

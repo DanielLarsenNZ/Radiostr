@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Model;
+using Radiostr.Services;
 using Radiostr.Web.Controllers;
+using System.Linq;
 
 namespace Radiostr.Web.Tests.Controllers
 {
@@ -25,9 +27,12 @@ namespace Radiostr.Web.Tests.Controllers
             Trace.WriteLine("id = " + id);
             var entity = controller.Get(id);
             Trace.WriteLine(entity);
-            controller.Get();
+            var entities = controller.Get(new {stationId});
+            entities.ToList().ForEach(e=> Trace.WriteLine(e.ToString()));
+
             controller.Put(entity);
-            controller.Delete(id);
+            entity = controller.Get(id);
+            controller.Delete(entity);
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Radiostr.Repositories
     {
         int Create(T entity);
         T Get(int id);
-        IEnumerable<T> GetList(string sql);
+        IEnumerable<T> GetList(string sql, object param);
         void Update(T entity);
-        void Delete(int id);
+        void Delete(T entity);
     }
 }

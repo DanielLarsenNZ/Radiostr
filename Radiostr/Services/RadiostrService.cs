@@ -6,23 +6,23 @@ using Radiostr.Repositories;
 
 namespace Radiostr.Services
 {
-    public class Service<T> : IService<T> where T : class
+    public class RadiostrService<T> : IService<T> where T : class
     {
-        internal Service(ISecurityHelper securityHelper, IRepository<T> repository) 
+        internal RadiostrService(ISecurityHelper securityHelper, IRepository<T> repository) 
         {
             _securityHelper = securityHelper;
-            _repository = repository;            
+            Repository = repository;            
         }
 
         private readonly ISecurityHelper _securityHelper;
-        private readonly IRepository<T> _repository;
+        internal readonly IRepository<T> Repository;
 
         public virtual int Create(T model)
         {
             if (model == null) throw new ArgumentNullException("model");
             _securityHelper.Authenticate();
 
-            return _repository.Create(model);
+            return Repository.Create(model);
         }
 
         public virtual T Get(int id)
@@ -30,15 +30,12 @@ namespace Radiostr.Services
             if (id < 1) throw new ArgumentOutOfRangeException("id");
             _securityHelper.Authenticate();
 
-            return _repository.Get(id);
+            return Repository.Get(id);
         }
 
-        public virtual IEnumerable<T> GetList(string sql)
+        public virtual IEnumerable<T> GetList(dynamic param)
         {
-            if (string.IsNullOrEmpty(sql)) throw new ArgumentOutOfRangeException("sql");
-            _securityHelper.Authenticate();
-
-            return _repository.GetList(sql);
+            throw new NotSupportedException();
         }
 
         public virtual void Update(T model)
@@ -46,24 +43,23 @@ namespace Radiostr.Services
             if (model == null) throw new ArgumentNullException("model");
             _securityHelper.Authenticate();
 
-            _repository.Update(model);
+            Repository.Update(model);
         }
 
-        public virtual void Delete(int id)
+        public virtual void Delete(T model)
         {
-            if (id < 1) throw new ArgumentOutOfRangeException("id");
+            if (model == null) throw new ArgumentNullException("model");
             _securityHelper.Authenticate();
 
-            _repository.Delete(id);
+            Repository.Delete(model);
         }
 
         /// <summary>
         /// Public factory method, in lieu of IoC.
         /// </summary>
-        public static Service<T> CreateService()
+        public static RadiostrService<T> CreateService()
         {
-            return new Service<T>(new MockSecurityHelper(), new Repository<T>(new RadiostrDbConnection()));
+            return new RadiostrService<T>(new MockSecurityHelper(), new RadiostrRepository<T>(new RadiostrDbConnection()));
         }
-
     }
 }

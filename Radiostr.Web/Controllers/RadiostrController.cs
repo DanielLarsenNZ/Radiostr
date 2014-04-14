@@ -1,43 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using Radiostr.Services;
 
 
 namespace Radiostr.Web.Controllers
 {
-    public abstract class RadiostrController<T> :ApiController where T:class 
+    public abstract class RadiostrController<T> : ApiController where T:class 
     {
-        private readonly IService<T> _service = Service<T>.CreateService();
-
-        // GET api/t
-        public virtual IEnumerable<T> Get()
+        protected RadiostrController(RadiostrService<T> service)
         {
-            throw new NotSupportedException();
+            Service = service;
         }
+
+        protected IService<T> Service { get; set; }
 
         // GET api/t/5
         public virtual T Get(int id)
         {
-            return _service.Get(id);
+            return Service.Get(id);
+        }
+
+        // GET api/t
+        public virtual IEnumerable<T> Get(dynamic param)
+        {
+            return Service.GetList(param);
         }
 
         // POST api/t
         public virtual int Post([FromBody]T model)
         {
-            return _service.Create(model);
+            return Service.Create(model);
         }
 
         // PUT api/t/5
         public virtual void Put([FromBody]T model)
         {
-            _service.Update(model);
+            Service.Update(model);
         }
 
         // DELETE api/t/5
-        public virtual void Delete(int id)
+        public virtual void Delete(T model)
         {
-            _service.Delete(id);
+            Service.Delete(model);
         }
          
     }

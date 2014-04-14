@@ -6,8 +6,8 @@ namespace Radiostr.Services
     {
         int Create(T model);
         T Get(int id);
-        IEnumerable<T> GetList(string sql);
+        IEnumerable<T> GetList(dynamic param);
         void Update(T model);
-        void Delete(int id);
+        void Delete(T model);
     }
 }
