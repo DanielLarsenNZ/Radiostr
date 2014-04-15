@@ -9,6 +9,7 @@ _DansNotes.txt
 *.user
 *.sln.docstates
 Readme.html
+TwitterOAuthSettings.config
 
 # Build results
 [Dd]ebug/

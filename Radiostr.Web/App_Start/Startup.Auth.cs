@@ -5,8 +5,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Radiostr.Web.Configuration;
 using Radiostr.Web.Providers;
 
 namespace Radiostr.Web
@@ -51,15 +53,13 @@ namespace Radiostr.Web
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            app.UseTwitterAuthentication(TwitterOAuthSettings.Settings.ApiKey, TwitterOAuthSettings.Settings.ApiSecret);
 
             //app.UseFacebookAuthentication(
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication();
         }
     }
 }

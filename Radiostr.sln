@@ -15,6 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radiostr.Tests", "Radiostr.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BB4F8A5-5E98-464C-8AC3-CD37212DD2A4}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
