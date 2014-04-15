@@ -11,6 +11,8 @@ namespace Radiostr.Web.Configuration
         </configuration>
      */
 
+    // http://haacked.com/archive/2007/03/12/custom-configuration-sections-in-3-easy-steps.aspx/
+
     public abstract class OAuthSettings : ConfigurationSection
     {
         private const string ApiKeyAttributeName = "apiKey";
