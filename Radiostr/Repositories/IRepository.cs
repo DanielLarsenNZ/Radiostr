@@ -9,5 +9,6 @@ namespace Radiostr.Repositories
         IEnumerable<T> GetList(string sql, object param);
         void Update(T entity);
         void Delete(T entity);
+        IEnumerable<dynamic> Query(string sql, object param);
     }
 }

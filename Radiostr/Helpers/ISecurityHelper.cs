@@ -6,6 +6,8 @@
     public interface ISecurityHelper
     {
         void Authenticate();
+        void Authenticate(int stationId);
+        void Authenticate(int stationId, int libraryId);
         void Authorise(string role);
     }
 }

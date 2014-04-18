@@ -1,5 +1,5 @@
 ﻿//WIP
-namespace Radiostr.Model
+namespace Radiostr.Models
 {
     public class PlayerMessage
     {

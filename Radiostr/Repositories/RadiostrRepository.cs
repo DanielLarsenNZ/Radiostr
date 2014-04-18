@@ -2,6 +2,7 @@
 using Dapper;
 using DapperExtensions;
 using Radiostr.Data;
+using Radiostr.Results;
 
 namespace Radiostr.Repositories
 {
@@ -67,6 +68,17 @@ namespace Radiostr.Repositories
                 conn.Open();
                 conn.Delete(entity);
                 conn.Close();
+            }
+        }
+
+        public IEnumerable<dynamic> Query(string sql, object param)
+        {
+            using (var conn = _db.GetDbConnection())
+            {
+                conn.Open();
+                var result = conn.Query(sql, param);
+                conn.Close();
+                return result;
             }
         }
     }

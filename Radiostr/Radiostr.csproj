@@ -49,18 +49,21 @@
     <Compile Include="Helpers\ISecurityHelper.cs" />
     <Compile Include="Helpers\MockSecurityHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
-    <Compile Include="Model\Library.cs" />
-    <Compile Include="Model\Station.cs" />
-    <Compile Include="Model\Track.cs" />
-    <Compile Include="Model\PlayerMessage.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Models\Library.cs" />
+    <Compile Include="Models\Station.cs" />
+    <Compile Include="Models\Track.cs" />
+    <Compile Include="Models\PlayerMessage.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\RadiostrRepository.cs" />
+    <Compile Include="Results\Result.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\LibraryService.cs" />
     <Compile Include="Services\RadiostrService.cs" />
+    <Compile Include="Services\LibraryTrackImportService.cs" />
+    <Compile Include="Services\TrackSearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

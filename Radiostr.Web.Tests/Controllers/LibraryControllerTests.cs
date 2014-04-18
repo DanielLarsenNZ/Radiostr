@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Radiostr.Model;
-using Radiostr.Services;
+using Radiostr.Models;
 using Radiostr.Web.Controllers;
 using System.Linq;
 

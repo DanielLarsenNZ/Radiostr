@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Radiostr.Models;
 using Radiostr.Web.Controllers;
-using Radiostr.Model;
 
 namespace Radiostr.Web.Tests.Controllers
 {

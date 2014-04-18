@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Radiostr.Model
+namespace Radiostr.Models
 {
     public class Library
     {
