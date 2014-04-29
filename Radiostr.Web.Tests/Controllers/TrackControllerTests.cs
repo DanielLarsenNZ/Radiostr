@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Radiostr.Entities;
 using Radiostr.Models;
 using Radiostr.Web.Controllers;
 
@@ -42,6 +43,9 @@ namespace Radiostr.Web.Tests.Controllers
         [TestCategory("integration")]
         public void BigPostTrackModelTest()
         {
+
+            throw new NotImplementedException();
+
             /*
             {
                 StationId: 123,
@@ -57,45 +61,45 @@ namespace Radiostr.Web.Tests.Controllers
             }
              */
 
-            // Arrange
-            var stationController = new StationController();
-
-            // Act
-            var stationId = stationController.Post(new Station { Name = "New test Station", WhenCreated = DateTime.Now, StationOwnerId = 1 });
-            Trace.WriteLine("stationId = " + stationId);
-            var controller = new TrackController();
-
-            dynamic trackModel = new
-            {
-                StationId = stationId,
-                LibraryId = 456,
-                Tags = "nights, reggae",
-                Tracks = new []
-                {
-                    new
-                    {
-                        Title = "Title1",
-                        Artist = "Artist1",
-                        Duration = "3:30",
-                        Uri = "http://spotify.com/track/tr67uw783y",
-                        Tags = "dub"
-
-                    },
-                    new
-                    {
-                        Title = "Title2",
-                        Artist = "Artist2",
-                        Duration = "3:32",
-                        Uri = "http://spotify.com/track/tr67uw783y",
-                        Tags = "ska, sun-studios"
-                    }
-                }
-            };
-
-            // Act
-            controller.Post(trackModel);
-
-            // Assert
+//            // Arrange
+//            var stationController = new StationController();
+//
+//            // Act
+//            var stationId = stationController.Post(new Station { Name = "New test Station", WhenCreated = DateTime.Now, StationOwnerId = 1 });
+//            Trace.WriteLine("stationId = " + stationId);
+//            var controller = new TrackController();
+//
+//            dynamic trackModel = new
+//            {
+//                StationId = stationId,
+//                LibraryId = 456,
+//                Tags = "nights, reggae",
+//                Tracks = new []
+//                {
+//                    new
+//                    {
+//                        Title = "Title1",
+//                        Artist = "Artist1",
+//                        Duration = "3:30",
+//                        Uri = "http://spotify.com/track/tr67uw783y",
+//                        Tags = "dub"
+//
+//                    },
+//                    new
+//                    {
+//                        Title = "Title2",
+//                        Artist = "Artist2",
+//                        Duration = "3:32",
+//                        Uri = "http://spotify.com/track/tr67uw783y",
+//                        Tags = "ska, sun-studios"
+//                    }
+//                }
+//            };
+//
+//            // Act
+//            controller.Post(trackModel);
+//
+//            // Assert
 
         }
     }

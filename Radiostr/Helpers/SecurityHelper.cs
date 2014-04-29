@@ -7,12 +7,12 @@
             throw new System.NotImplementedException();
         }
 
-        public void Authenticate(int stationId)
+        public void Authorise(int stationId)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Authenticate(int stationId, int libraryId)
+        public void Authorise(int stationId, int libraryId)
         {
             throw new System.NotImplementedException();
         }

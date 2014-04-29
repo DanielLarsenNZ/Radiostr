@@ -1,64 +1,82 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Radiostr.Data;
+using Radiostr.Entities;
 using Radiostr.Helpers;
 using Radiostr.Models;
 using Radiostr.Repositories;
+using Radiostr.Results;
 
 namespace Radiostr.Services
 {
     /// <summary>
     /// Finds Tracks using various criteria
     /// </summary>
-    public class TrackSearchService
+    public class TrackSearchService : ITrackSearchService
     {
         private readonly ISecurityHelper _securityHelper;
-        private readonly IRepository<Track> _trackRepository;
+        private readonly IRepository _repository;
 
-        internal TrackSearchService(ISecurityHelper securityHelper, IRepository<Track> trackRepository)
+        internal TrackSearchService(ISecurityHelper securityHelper, IRepository repository)
         {
             _securityHelper = securityHelper;
-            _trackRepository = trackRepository;
+            _repository = repository;
         }
 
         /// <summary>
         /// Finds Track by title, artist and duration.
         /// </summary>
-        /// <returns>Track ID or 0 if not found.</returns>
-        public dynamic FindTrack(string artist, string title, string album)
+        /// <returns>{Found, Message, ArtistId, AlbumId, TrackId}</returns>
+        public TrackSearchResult FindTrack(string artist, string title, string album)
         {
+            if (string.IsNullOrEmpty(artist)) throw new ArgumentNullException("artist");
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            if (string.IsNullOrEmpty(album)) throw new ArgumentNullException("album");
+
             _securityHelper.Authenticate();
 
-            var artistResults = FindArtist(artist);
-            if (!artistResults.Found) return artistResults;
+            // find artist
+            var artistResults = FindArtist(artist).ToList();
+            if (!artistResults.Any()) return new TrackSearchResult{Found = false, 
+                Message = string.Format("Artist \"{0}\"", artist)};
 
             // find album
             int albumId = 0;
             int artistId = 0;
-            foreach (var artistResult in artistResults.Artists)
+            foreach (var artistResult in artistResults)
             {
-                artistId = artistResult.ArtistId;
-                var albumResult = FindAlbum(artistId, album);
-                if (albumResult.Found)
-                {
-                    albumId = albumResult.AlbumId;
-                    break;
-                }
+                artistId = artistResult.Id;
+                albumId = FindAlbum(artistId, album);
+                if (albumId != 0) break;
             }
-            
-            if (albumId == 0) return new {Found = false, Message = "Album not found", artistResults.Artists};
+
+            if (albumId == 0)
+                return new TrackSearchResult
+                {
+                    Found = false,
+                    Message = string.Format("Album \"{0}\" not found for Artist \"{1}\"", album, artist)
+                };
 
             // find track
             int trackId = FindTrack(artistId, albumId, title);
             if (trackId == 0)
-                return new {Found = false, Message = "Track not found", ArtistId = artistId, AlbumId = albumId};
+                return new TrackSearchResult
+                {
+                    Found = false,
+                    Message =
+                        string.Format("No Track \"{0}\" found for Artist \"{1}\" and Album \"{2}\".", title, artist,
+                            album),
+                    ArtistId = artistId,
+                    AlbumId = albumId
+                };
 
-            return new {Found = true, ArtistId = artistId, AlbumId = albumId, TrackId = trackId};
+            return new TrackSearchResult { Found = true, ArtistId = artistId, AlbumId = albumId, TrackId = trackId };
         }
 
         protected internal int FindTrack(int artistId, int albumId, string title)
         {
-            var results = _trackRepository
+            var results = _repository
                 .Query("select Id from Track where ArtistId = @artistId and AlbumId = @albumId and Title = @title",
                     new {artistId, albumId, title})
                 .ToList();
@@ -68,23 +86,19 @@ namespace Radiostr.Services
             return results[0].Id;
         }
 
-        protected internal dynamic FindAlbum(int artistId, string album)
+        protected int FindAlbum(int artistId, string album)
         {
-            var result = _trackRepository.Query("select Id from Album where ArtistId = @artistId and Title = @album",
+            var result = _repository.Query("select Id from Album where ArtistId = @artistId and Title = @album",
                 new {artistId, album})
                 .ToList();
-            if (!result.Any()) return new { Found = false, Message = "Album not found", AlbumId = 0 };
             if (result.Count > 1) throw new InvalidOperationException("Album records should be unique by artist and title.");
 
-            return new { Found = true, AlbumId = result[0].Id };
+            return result.Count == 0 ? 0 : result[0].Id;
         }
 
-        protected internal dynamic FindArtist(string artist)
+        protected internal IEnumerable<dynamic> FindArtist(string artist)
         {
-            var results = _trackRepository.Query("select Id from Artist where Name = @artist", new { artist }).ToList();
-            if (!results.Any()) return new {Found = false, Message = "Artist not found"};
-
-            return new {Found = true, results.Count, Artists = results};
+            return _repository.Query("select Id from Artist where Name = @artist", new {artist});
         }
 
         /// <summary>
@@ -93,9 +107,11 @@ namespace Radiostr.Services
         /// <returns>TrackId or 0 if not found</returns>
         public int FindTrack(string uri)
         {
+            if (string.IsNullOrEmpty(uri)) throw new ArgumentNullException("uri");
+
             _securityHelper.Authenticate();
 
-            var result = _trackRepository.Query("select TrackId from TrackUri where Uri = @uri", new {uri}).ToList();
+            var result = _repository.Query("select TrackId from TrackUri where Uri = @uri", new {uri}).ToList();
 
             if (!result.Any()) return 0;
             

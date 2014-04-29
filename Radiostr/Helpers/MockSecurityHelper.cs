@@ -6,11 +6,11 @@
         {
         }
 
-        public void Authenticate(int stationId)
+        public void Authorise(int stationId)
         {
         }
 
-        public void Authenticate(int stationId, int libraryId)
+        public void Authorise(int stationId, int libraryId)
         {
         }
 

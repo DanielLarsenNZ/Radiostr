@@ -10,17 +10,17 @@ namespace Radiostr.Services
     {
         internal RadiostrService(ISecurityHelper securityHelper, IRepository<T> repository) 
         {
-            _securityHelper = securityHelper;
+            SecurityHelper = securityHelper;
             Repository = repository;            
         }
 
-        private readonly ISecurityHelper _securityHelper;
+        internal readonly ISecurityHelper SecurityHelper;
         internal readonly IRepository<T> Repository;
 
         public virtual int Create(T model)
         {
             if (model == null) throw new ArgumentNullException("model");
-            _securityHelper.Authenticate();
+            SecurityHelper.Authenticate();
 
             return Repository.Create(model);
         }
@@ -28,20 +28,21 @@ namespace Radiostr.Services
         public virtual T Get(int id)
         {
             if (id < 1) throw new ArgumentOutOfRangeException("id");
-            _securityHelper.Authenticate();
+            SecurityHelper.Authenticate();
 
             return Repository.Get(id);
         }
 
         public virtual IEnumerable<T> GetList(dynamic param)
         {
+            SecurityHelper.Authenticate();
             throw new NotSupportedException();
         }
 
         public virtual void Update(T model)
         {
             if (model == null) throw new ArgumentNullException("model");
-            _securityHelper.Authenticate();
+            SecurityHelper.Authenticate();
 
             Repository.Update(model);
         }
@@ -49,7 +50,7 @@ namespace Radiostr.Services
         public virtual void Delete(T model)
         {
             if (model == null) throw new ArgumentNullException("model");
-            _securityHelper.Authenticate();
+            SecurityHelper.Authenticate();
 
             Repository.Delete(model);
         }

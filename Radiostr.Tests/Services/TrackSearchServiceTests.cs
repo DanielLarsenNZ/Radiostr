@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Services;
 
@@ -18,7 +17,7 @@ namespace Radiostr.Tests.Services
             // Act
             int trackId = service.FindTrack("http://spotify.com/track/abc123");
             Trace.WriteLine("trackId = " + trackId);
-
+            
             var result = service.FindTrack("New artist", "New title", "New album");
             string message = result.ToString();
             Trace.WriteLine(message);

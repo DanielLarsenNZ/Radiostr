@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FD2FF51B-1FFC-4AD5-8C72-88F9916D8E27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radiostr.Logging", "Radiostr.Logger\Radiostr.Logging.csproj", "{C5EE8F66-D7B5-4476-83A3-5E6D6000DF3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{D9A97147-0414-4189-AC54-AB1A26BDD8F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9A97147-0414-4189-AC54-AB1A26BDD8F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9A97147-0414-4189-AC54-AB1A26BDD8F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EE8F66-D7B5-4476-83A3-5E6D6000DF3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EE8F66-D7B5-4476-83A3-5E6D6000DF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EE8F66-D7B5-4476-83A3-5E6D6000DF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EE8F66-D7B5-4476-83A3-5E6D6000DF3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

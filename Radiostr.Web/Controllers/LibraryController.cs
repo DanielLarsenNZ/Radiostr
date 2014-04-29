@@ -1,4 +1,4 @@
-﻿using Radiostr.Models;
+﻿using Radiostr.Entities;
 using Radiostr.Services;
 
 namespace Radiostr.Web.Controllers

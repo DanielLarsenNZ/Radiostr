@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Radiostr.Data;
+using Radiostr.Entities;
 using Radiostr.Helpers;
-using Radiostr.Models;
 using Radiostr.Repositories;
 
 namespace Radiostr.Services

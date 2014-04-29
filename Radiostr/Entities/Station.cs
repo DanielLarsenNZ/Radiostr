@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Radiostr.Models
+namespace Radiostr.Entities
 {
     public class Station
     {
