@@ -24,7 +24,7 @@ namespace Radiostr.Services
 
         internal TrackImportService(ISecurityHelper securityHelper, ITrackSearchService trackSearchService, 
             ITrackService trackService, RadiostrService<Artist> artistService, ILibraryTrackService libraryTrackService,
-            ILogRegistry logRegistry) 
+            ILoggerRegistry logRegistry) 
         {
             _securityHelper = securityHelper;
             _trackSearchService = trackSearchService;
@@ -120,7 +120,7 @@ namespace Radiostr.Services
                 new TrackService(helper, new RadiostrRepository<Track>(db),
                 new RadiostrRepository<Album>(db), new RadiostrRepository<TrackUri>(db)),
                 new RadiostrService<Artist>(helper, new RadiostrRepository<Artist>(db)),
-                new LibraryTrackService(helper, new RadiostrRepository<LibraryTrack>(db)), new LogRegistry());
+                new LibraryTrackService(helper, new RadiostrRepository<LibraryTrack>(db)), new LoggerRegistry());
         }
     }
 }
