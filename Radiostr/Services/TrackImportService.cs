@@ -47,24 +47,31 @@ namespace Radiostr.Services
 
             foreach (TrackModel track in model.Tracks)
             {
-                _log.Message("Importing track {0}", new object[] {track});
+                _log.Message("Importing track {0} into Library {1} for Station {2}",
+                    new object[] {track, model.StationId, model.LibraryId});
 
                 // does track already exist?
                 var trackResult = FindTrack(track);
-                
+
+                if (!trackResult.Found) _log.Message("Track {0} was not found.", new object[] {track});
+
                 // if not found, create the Track
                 int trackId = trackResult.Found ? trackResult.TrackId : CreateTrack(trackResult, track);
+
+                _log.Message("TrackId = " + trackId);
 
                 // does Track exist in library?
                 if (!_libraryTrackService.TrackExistsInLibrary(trackId, model.LibraryId))
                 {
                     // Create LibraryTrack
-                    _libraryTrackService.Create(new LibraryTrack
+                    int libraryTrackId = _libraryTrackService.Create(new LibraryTrack
                     {
                         LibraryId = model.LibraryId,
                         TrackId = trackId,
                         WhenAdded = DateTime.Now
                     });
+
+                    _log.Message("LibraryTrack created with Id = " + libraryTrackId);
 
                     results.Add(string.Format("{0} added to Library {1}.", track, model.LibraryId));
                     continue;
@@ -84,17 +91,18 @@ namespace Radiostr.Services
             
             if (result.AlbumId == 0)
             {
+                _log.Message("Creating Track Title = {0}, ArtistId = {1}, Album = {2}",
+                    new object[] {track.Title, artistId, track.Album});
+
                 return _trackService.CreateTrack(artistId, track.Album, track.Title, track.Uri, track.Duration);
             }
-            
+
+            _log.Message("Creating Track Title = {0}, ArtistId = {1}, AlbumId = {2}",
+                new object[] {track.Title, artistId, result.AlbumId});
+
             return _trackService.CreateTrack(artistId, result.AlbumId, track.Title, track.Uri, track.Duration);
-            
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="track"></param>
         protected internal TrackSearchResult FindTrack(dynamic track)
         {
             // find track by URI
@@ -102,7 +110,9 @@ namespace Radiostr.Services
 
             if (trackId != 0)
             {
-
+                // another good reason not to use dynamic: Compiler won't set CallerMemberAttributes on methods dispatched at runtime!
+                _log.Message("Track found by URI " + track.Uri);
+                
                 return new TrackSearchResult {Found = true, TrackId = trackId};
             }
 
@@ -110,7 +120,7 @@ namespace Radiostr.Services
             return _trackSearchService.FindTrack(track.Artist, track.Title, track.Album);
         }
 
-        protected internal static TrackImportService CreateTrackImportService()
+        public static TrackImportService CreateTrackImportService()
         {
             var db = new RadiostrDbConnection();
             var helper = new MockSecurityHelper();

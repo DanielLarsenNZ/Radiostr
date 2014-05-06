@@ -192,6 +192,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Metrics\IMetricsRegistry.cs" />
+    <Compile Include="Metrics\ITimer.cs" />
+    <Compile Include="Metrics\MetricsModel.cs" />
+    <Compile Include="Metrics\MetricsResult.cs" />
+    <Compile Include="Metrics\MetricsRegistry.cs" />
+    <Compile Include="Metrics\Timer.cs" />
+    <Compile Include="Metrics\WatchedStoppedEventArgs.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
