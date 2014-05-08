@@ -53,7 +53,7 @@ namespace Radiostr.Web
             //    clientId: "",
             //    clientSecret: "");
 
-            app.UseTwitterAuthentication(TwitterOAuthSettings.Settings.ApiKey, TwitterOAuthSettings.Settings.ApiSecret);
+            //app.UseTwitterAuthentication(TwitterOAuthSettings.Settings.ApiKey, TwitterOAuthSettings.Settings.ApiSecret);
 
             //app.UseFacebookAuthentication(
             //    appId: "",
