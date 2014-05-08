@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Radiostr.Entities;
 using Radiostr.Models;
 using Radiostr.Web.Controllers;
@@ -69,6 +70,8 @@ namespace Radiostr.Web.Tests.Controllers
                     }
                 }
             };
+
+            //var json = JsonConvert.SerializeObject(model);
 
             // Act
             MetricsResult result = null;

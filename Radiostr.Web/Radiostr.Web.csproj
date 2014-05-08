@@ -198,7 +198,7 @@
     <Compile Include="Metrics\MetricsResult.cs" />
     <Compile Include="Metrics\MetricsRegistry.cs" />
     <Compile Include="Metrics\Timer.cs" />
-    <Compile Include="Metrics\WatchedStoppedEventArgs.cs" />
+    <Compile Include="Metrics\TimerStoppedEventArgs.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,10 +207,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-Radiostr.Web-20140407074228.mdf" />
-    <Content Include="App_Data\aspnet-Radiostr.Web-20140407074228_log.ldf">
-      <DependentUpon>aspnet-Radiostr.Web-20140407074228.mdf</DependentUpon>
-    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
