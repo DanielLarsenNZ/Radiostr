@@ -188,6 +188,7 @@
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\LibraryController.cs" />
     <Compile Include="Controllers\StationController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -256,7 +257,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="TwitterOAuthSettings - example.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\User\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

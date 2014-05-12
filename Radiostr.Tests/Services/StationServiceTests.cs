@@ -20,9 +20,10 @@ namespace Radiostr.Tests.Services
             var mockSecurityHelper = new Mock<ISecurityHelper>();
             var repository = new RadiostrRepository<Station>(new RadiostrDbConnection());
             var service = new RadiostrService<Station>(mockSecurityHelper.Object, repository);
+            int stationOwnerId = new TestHelper().GetTestUser().Id;
 
             // Act
-            int id = service.Create(new Station{Name = "Test Station 1", WhenCreated = DateTime.Now, StationOwnerId = 1});
+            int id = service.Create(new Station { Name = "Test Station 1", WhenCreated = DateTime.Now, StationOwnerId = stationOwnerId });
             Trace.WriteLine("Id = " + id);
             var station = service.Get(id);
             service.Update(station);

@@ -15,16 +15,12 @@ namespace Radiostr.Entities
         public int ArtistId { get; set; }
 
         [Required]
-        public int AlbumId { get; set; }
-
-        [Required]
         public float Duration { get; set; }
 
         public override string ToString()
         {
-            return string.Format("Id = {0}, Title = {1}, ArtistId = {2}, AlbumId = {3}, Duration = {4}", Id, Title,
-                ArtistId,
-                AlbumId, Duration);
+            return string.Format("Id = {0}, Title = {1}, ArtistId = {2}, Duration = {4}", Id, Title,
+                ArtistId, Duration);
         }
     }
 }

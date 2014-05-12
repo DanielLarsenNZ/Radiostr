@@ -64,9 +64,12 @@
     <Compile Include="Entities\Track.cs" />
     <Compile Include="Entities\TrackUri.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Helpers\IMbidHelper.cs" />
     <Compile Include="Helpers\ISecurityHelper.cs" />
+    <Compile Include="Helpers\MbidHelper.cs" />
     <Compile Include="Helpers\MockSecurityHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="Models\ArtistModel.cs" />
     <Compile Include="Models\TrackImportModel.cs" />
     <Compile Include="Models\TrackModel.cs" />
     <Compile Include="Repositories\IRepository.cs" />

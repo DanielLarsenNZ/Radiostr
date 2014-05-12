@@ -34,7 +34,6 @@ namespace Radiostr.Services
             // Track
             int trackId = Create(new Track
             {
-                AlbumId = albumId,
                 ArtistId = artistId,
                 Title = track,
                 Duration = duration

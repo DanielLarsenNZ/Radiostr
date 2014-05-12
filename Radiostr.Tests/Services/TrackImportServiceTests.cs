@@ -18,12 +18,13 @@ namespace Radiostr.Tests.Services
             var service = TrackImportService.CreateTrackImportService();
             var libraryService = LibraryService.CreateLibraryService();
             var stationService = RadiostrService<Station>.CreateService();
+            int stationOwnerId = new TestHelper().GetTestUser().Id;
 
             int stationId = stationService.Create(new Station
             {
                 Name = "New station",
                 Description = "New station",
-                StationOwnerId = 1,
+                StationOwnerId = stationOwnerId,
                 WhenCreated = DateTime.Now
             });
 
@@ -41,11 +42,11 @@ namespace Radiostr.Tests.Services
             {
                 LibraryId = libraryId,
                 StationId = stationId,
-                Tracks = new []
+                Tracks = new[]
                 {
                     new TrackModel
                     {
-                        Artist = "Artist1",
+                        Artist = new ArtistModel {Name = "Artist1"},
                         Title = "Title1",
                         Album = "Album 1",
                         Duration = 210f,

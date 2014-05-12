@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
+using Radiostr.Tests.Services;
 using Radiostr.Web.Controllers;
 
 namespace Radiostr.Web.Tests.Controllers
@@ -26,9 +27,10 @@ namespace Radiostr.Web.Tests.Controllers
         {
             // Arrange
             var controller = new StationController();
+            int stationOwnerId = new TestHelper().GetTestUser().Id;
 
             // Act
-            var id = controller.Post(new Station {Name = "New test Station", WhenCreated = DateTime.Now, StationOwnerId = 1});
+            var id = controller.Post(new Station { Name = "New test Station", WhenCreated = DateTime.Now, StationOwnerId = stationOwnerId });
             Trace.WriteLine("id = " + id);
             var station = controller.Get(id);
             controller.Put(station);

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
+using Radiostr.Tests.Services;
 using Radiostr.Web.Controllers;
 using System.Linq;
 
@@ -17,10 +18,11 @@ namespace Radiostr.Web.Tests.Controllers
             // Arrange
             var controller = new LibraryController();
             var stationController = new StationController();
+            int stationOwnerId = new TestHelper().GetTestUser().Id;
 
             // Act
             int stationId =
-                stationController.Post(new Station {Name = "Test", StationOwnerId = 1, WhenCreated = DateTime.Now});
+                stationController.Post(new Station { Name = "Test", StationOwnerId = stationOwnerId, WhenCreated = DateTime.Now });
 
             var id = controller.Post(new Library { Name = "New test Library", WhenCreated = DateTime.Now, StationId = stationId });
             Trace.WriteLine("id = " + id);

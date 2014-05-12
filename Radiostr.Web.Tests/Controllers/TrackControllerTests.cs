@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Radiostr.Entities;
 using Radiostr.Models;
+using Radiostr.Tests.Services;
 using Radiostr.Web.Controllers;
 using Radiostr.Web.Metrics;
 
@@ -22,12 +23,13 @@ namespace Radiostr.Web.Tests.Controllers
             var controller = new TrackController();
             var stationController = new StationController();
             var libraryController = new LibraryController();
+            int stationOwnerId = new TestHelper().GetTestUser().Id;
 
             int stationId =
                 stationController.Post(new Station
                 {
                     Name = "New station " + uid,
-                    StationOwnerId = 1,
+                    StationOwnerId = stationOwnerId,
                     WhenCreated = DateTime.Now
                 });
 
@@ -46,7 +48,7 @@ namespace Radiostr.Web.Tests.Controllers
                 {
                     new TrackModel
                     {
-                        Artist = "New Artist " + uid,
+                        Artist = new ArtistModel {Name = "New Artist " + uid},
                         Album = "New Album " + uid,
                         Title = "New Title " + uid,
                         Duration = 330f,
@@ -54,7 +56,7 @@ namespace Radiostr.Web.Tests.Controllers
                     },
                     new TrackModel
                     {
-                        Artist = "New Artist " + uid,
+                        Artist = new ArtistModel {Name = "New Artist " + uid},
                         Album = "New Album " + uid,
                         Title = "New Title " + uid,
                         Duration = 330f,
@@ -62,7 +64,7 @@ namespace Radiostr.Web.Tests.Controllers
                     },
                     new TrackModel
                     {
-                        Artist = "New Artist " + uid,
+                        Artist = new ArtistModel {Name = "New Artist " + uid},
                         Album = "New Album " + uid,
                         Title = "New Title " + uid,
                         Duration = 310f,

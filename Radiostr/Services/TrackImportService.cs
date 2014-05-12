@@ -21,16 +21,18 @@ namespace Radiostr.Services
         private readonly RadiostrService<Artist> _artistService;
         private readonly ILibraryTrackService _libraryTrackService;
         private readonly ILogger _log;
+        private readonly IMbidHelper _mbidHelper;
 
         internal TrackImportService(ISecurityHelper securityHelper, ITrackSearchService trackSearchService, 
             ITrackService trackService, RadiostrService<Artist> artistService, ILibraryTrackService libraryTrackService,
-            ILoggerRegistry logRegistry) 
+            ILoggerRegistry logRegistry, IMbidHelper mbidHelper) 
         {
             _securityHelper = securityHelper;
             _trackSearchService = trackSearchService;
             _trackService = trackService;
             _artistService = artistService;
             _libraryTrackService = libraryTrackService;
+            _mbidHelper = mbidHelper;
 
             _log = logRegistry.Logger(logRegistry.MakeKey("Radiostr.Services", "TrackImportService"));
         }
@@ -83,10 +85,10 @@ namespace Radiostr.Services
             return results.ToArray();
         }
 
-        protected internal int CreateTrack(TrackSearchResult result, dynamic track)
+        protected internal int CreateTrack(TrackSearchResult result, TrackModel track)
         {
             int artistId = result.ArtistId == 0
-                ? _artistService.Create(new Artist {Name = track.Artist})
+                ? _artistService.Create(new Artist {Name = track.Artist.Name})
                 : result.ArtistId;
             
             if (result.AlbumId == 0)
@@ -103,21 +105,32 @@ namespace Radiostr.Services
             return _trackService.CreateTrack(artistId, result.AlbumId, track.Title, track.Uri, track.Duration);
         }
 
-        protected internal TrackSearchResult FindTrack(dynamic track)
+        protected internal TrackSearchResult FindTrack(TrackModel track)
         {
             // find track by URI
-            int trackId = _trackSearchService.FindTrack(track.Uri);
+            int trackId = _trackSearchService.FindTrackByUri(track.Uri);
 
             if (trackId != 0)
             {
-                // another good reason not to use dynamic: Compiler won't set CallerMemberAttributes on methods dispatched at runtime!
-                _log.Message("Track found by URI " + track.Uri);
-                
+                _log.Message("Track found by URI " + track.Uri);                
                 return new TrackSearchResult {Found = true, TrackId = trackId};
             }
 
+            // find track by MBID
+            if (!string.IsNullOrEmpty(track.Mbid))
+            {
+                // re-using trackId
+                trackId = _trackSearchService.FindTrackByUri(_mbidHelper.GetMbidUri(track.Mbid));
+
+                if (trackId != 0)
+                {
+                    _log.Message("Track found by MBID " + track.Mbid);
+                    return new TrackSearchResult { Found = true, TrackId = trackId };
+                }
+            }
+
             // find track by title+artist+album
-            return _trackSearchService.FindTrack(track.Artist, track.Title, track.Album);
+            return _trackSearchService.FindTrack(track.Artist.Name, track.Title, track.Album);
         }
 
         public static TrackImportService CreateTrackImportService()
@@ -126,11 +139,11 @@ namespace Radiostr.Services
             var helper = new MockSecurityHelper();
 
             return new TrackImportService(helper, new TrackSearchService(helper,
-                new RadiostrRepository(db)),
+                new RadiostrRepository(db), new LoggerRegistry()),
                 new TrackService(helper, new RadiostrRepository<Track>(db),
                 new RadiostrRepository<Album>(db), new RadiostrRepository<TrackUri>(db)),
                 new RadiostrService<Artist>(helper, new RadiostrRepository<Artist>(db)),
-                new LibraryTrackService(helper, new RadiostrRepository<LibraryTrack>(db)), new LoggerRegistry());
+                new LibraryTrackService(helper, new RadiostrRepository<LibraryTrack>(db)), new LoggerRegistry(), new MbidHelper());
         }
     }
 }
