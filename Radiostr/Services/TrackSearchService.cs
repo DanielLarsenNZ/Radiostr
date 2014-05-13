@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Logging;
 using Radiostr.Data;
 using Radiostr.Entities;
 using Radiostr.Helpers;
-using Radiostr.Models;
 using Radiostr.Repositories;
 using Radiostr.Results;
 using Scale.Logger;

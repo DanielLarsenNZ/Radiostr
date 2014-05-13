@@ -19,13 +19,14 @@ namespace Radiostr.Services
         private readonly ITrackSearchService _trackSearchService;
         private readonly ITrackService _trackService;
         private readonly RadiostrService<Artist> _artistService;
+        private readonly RadiostrService<Album> _albumService;
         private readonly ILibraryTrackService _libraryTrackService;
         private readonly ILogger _log;
         private readonly IMbidHelper _mbidHelper;
 
         internal TrackImportService(ISecurityHelper securityHelper, ITrackSearchService trackSearchService, 
             ITrackService trackService, RadiostrService<Artist> artistService, ILibraryTrackService libraryTrackService,
-            ILoggerRegistry logRegistry, IMbidHelper mbidHelper) 
+            RadiostrService<Album> albumService, ILoggerRegistry logRegistry, IMbidHelper mbidHelper) 
         {
             _securityHelper = securityHelper;
             _trackSearchService = trackSearchService;
@@ -33,6 +34,7 @@ namespace Radiostr.Services
             _artistService = artistService;
             _libraryTrackService = libraryTrackService;
             _mbidHelper = mbidHelper;
+            _albumService = albumService;
 
             _log = logRegistry.Logger(logRegistry.MakeKey("Radiostr.Services", "TrackImportService"));
         }
@@ -96,7 +98,14 @@ namespace Radiostr.Services
                 _log.Message("Creating Track Title = {0}, ArtistId = {1}, Album = {2}",
                     new object[] {track.Title, artistId, track.Album});
 
-                return _trackService.CreateTrack(artistId, track.Album, track.Title, track.Uri, track.Duration);
+                if (string.IsNullOrEmpty(track.Album))
+                {
+                    // create a track without an Album
+                    return _trackService.CreateTrack(artistId, track.Title, track.Uri, track.Duration);    
+                }
+                // create an album and a track
+                int albumId = _albumService.Create(new Album { ArtistId = artistId, Title = track.Album });
+                return _trackService.CreateTrack(artistId, albumId, track.Title, track.Uri, track.Duration);    
             }
 
             _log.Message("Creating Track Title = {0}, ArtistId = {1}, AlbumId = {2}",
@@ -141,9 +150,10 @@ namespace Radiostr.Services
             return new TrackImportService(helper, new TrackSearchService(helper,
                 new RadiostrRepository(db), new LoggerRegistry()),
                 new TrackService(helper, new RadiostrRepository<Track>(db),
-                new RadiostrRepository<Album>(db), new RadiostrRepository<TrackUri>(db)),
+                new TrackAlbumRepository(db),  new RadiostrRepository<TrackUri>(db)),
                 new RadiostrService<Artist>(helper, new RadiostrRepository<Artist>(db)),
-                new LibraryTrackService(helper, new RadiostrRepository<LibraryTrack>(db)), new LoggerRegistry(), new MbidHelper());
+                new LibraryTrackService(helper, new RadiostrRepository<LibraryTrack>(db)), 
+                new RadiostrService<Album>(helper, new RadiostrRepository<Album>(db)),  new LoggerRegistry(), new MbidHelper());
         }
     }
 }

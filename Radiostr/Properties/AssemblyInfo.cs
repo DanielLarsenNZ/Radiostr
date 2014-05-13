@@ -36,4 +36,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.1.0.0")]
 
 [assembly: InternalsVisibleTo("Radiostr.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")] // Allows Moq to mock internals
 

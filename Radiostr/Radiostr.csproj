@@ -62,6 +62,7 @@
     <Compile Include="Entities\LibraryTrack.cs" />
     <Compile Include="Entities\Station.cs" />
     <Compile Include="Entities\Track.cs" />
+    <Compile Include="Entities\TrackAlbum.cs" />
     <Compile Include="Entities\TrackUri.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Helpers\IMbidHelper.cs" />
@@ -73,7 +74,9 @@
     <Compile Include="Models\TrackImportModel.cs" />
     <Compile Include="Models\TrackModel.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\ITrackAlbumRepository.cs" />
     <Compile Include="Repositories\RadiostrRepository.cs" />
+    <Compile Include="Repositories\TrackAlbumRepository.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Results\TrackSearchResult.cs" />
     <Compile Include="Selector.cs" />
