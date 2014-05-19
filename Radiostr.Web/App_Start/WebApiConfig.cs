@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using Radiostr.Web.Filters;
 
 namespace Radiostr.Web
 {
@@ -16,6 +17,8 @@ namespace Radiostr.Web
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new RadiostrExceptionFilter());
+            config.Filters.Add(new ModelValidationFilter());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
