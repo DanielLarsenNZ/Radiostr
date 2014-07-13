@@ -9,7 +9,7 @@ _DansNotes.txt
 *.user
 *.sln.docstates
 Readme.html
-appSettings.config
+appSettings.local.config
 _*
 
 
