@@ -6,14 +6,14 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace Radiostr.Web.Areas.HelpPage
+namespace Radiostr.Web.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// This class will create an object of a given type and populate it with sample data.
     /// </summary>
     public class ObjectGenerator
     {
-        private const int DefaultCollectionSize = 3;
+        internal const int DefaultCollectionSize = 2;
         private readonly SimpleTypeObjectGenerator SimpleObjectGenerator = new SimpleTypeObjectGenerator();
 
         /// <summary>

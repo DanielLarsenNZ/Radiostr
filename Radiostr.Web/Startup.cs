@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
+using Radiostr.Web;
 
-[assembly: OwinStartup(typeof(Radiostr.Web.Startup))]
+[assembly: OwinStartup("Radiostr.Web.Startup", typeof(Startup))]
 
 namespace Radiostr.Web
 {

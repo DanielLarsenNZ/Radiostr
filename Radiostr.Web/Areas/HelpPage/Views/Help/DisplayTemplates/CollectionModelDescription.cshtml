@@ -1,0 +1,6 @@
+@using Radiostr.Web.Areas.HelpPage.ModelDescriptions
+@model Radiostr.Web.Areas.HelpPage.ModelDescriptions.CollectionModelDescription
+@if (Model.ElementDescription is ComplexTypeModelDescription)
+{
+    @Html.DisplayFor(m => m.ElementDescription)
+}

@@ -1,21 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Controllers;
 using Radiostr.Services;
-
 
 namespace Radiostr.Web.Controllers
 {
     public abstract class RadiostrController<T> : ApiController where T:class 
     {
-        public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
-        {
-            return base.ExecuteAsync(controllerContext, cancellationToken);
-        }
-
         protected RadiostrController(RadiostrService<T> service)
         {
             Service = service;

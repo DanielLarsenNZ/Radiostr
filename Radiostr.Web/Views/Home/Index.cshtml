@@ -1,24 +1,121 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+﻿@section scripts
+{
+    <script src="@Url.Content("~/Scripts/Controllers/StationController.js")"></script>
+}
+
+<h1>Radiost*r</h1>
+<p><small>Broadcast yourself</small></p>
+
+<div class="container" ng-controller="StationController">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h1>Jukebox <small><sup> <span class="label label-success">New!</span></sup></small></h1>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Start a Jukebox for work in less-than five clicks.
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success" ng-click="createStation = true">Go!</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h1>Radio Station <small><sup> <span class="label label-default"></span></sup></small> </h1>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Start your very own Radio Station and broadcast yourself.
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-default">Coming soon...</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" ng-show="createStation">
+            <div class="jumbotron">
+                <div class="form-group">
+                    <label for="stationName">Choose a name for your Jukebox</label>
+                    <input type="text" class="form-control" id="stationName" ng-model="station.name" placeholder="e.g. Funkin' beats'">
+                </div>
+                <div class="form-group">
+                    <label for="stationDescription">Describe the music that will play on it</label>
+                    <input type="text" class="form-control" id="stationDescription" ng-model="station.description" placeholder="e.g. All the funkin' beats that you can handle!">
+                </div>
+                <div class="form-group">
+                    <label for="spotifyUsername">What's your Spotify Username?</label>
+                    <input type="text" class="form-control" id="spotifyUsername" ng-model="spotify.Username">
+                </div>
+                <button ng-click="create()" class="btn btn-success">Next</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" ng-show="chooseMusic">
+            <div class="jumbotron">
+                <h2>Ok, let's choose some music...</h2>
+
+                We found the following shared (public) playlists on your Spotify account. Choose which ones
+                you would like to be included in the Jukebox library. (You can add more later).
+
+                <div class="form-group">
+                    <label for="spotifyPlaylistIds">Ctrl/Apple + click one or more Spotify Playlists</label>
+                    <select multiple class="form-control" id="spotifyPlaylistIds" ng-model="spotify.PlaylistIds">
+                        <option value="1">Reggae hits</option>
+                        <option value="2">Monster beats</option>
+                        <option value="3">Setlist</option>
+                        <option value="4">Chillout</option>
+                        <option value="5">Hedfones</option>
+                    </select>
+                </div>
+
+                <button ng-click="" class="btn btn-danger">Start the Jukebox</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" ng-show="finished">
+            <div class="jumbotron">
+                <h2>Nice work!</h2>
+                Your Jukebox has been started and is playing your favourite music right now. Copy this URL and share it with your friends:
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4>https://radiostr.com/tx/a6b5da</h4>
+                    </div>
+                </div>
+
+                Now all you need to do is:
+                <ul>
+                    <li><a href="#download">Download a player</a>. We have players for Windows, Mac, Linux and Mobile.</li>
+                    <li><a href="#share">Share with your friends</a>. Email or Twitter them these instructions or we can do it for you.</li>
+                    <li>
+                        <a href="#signin">Sign-in with Twitter</a>. If you would like to manage your Jukebox then you will need to sign-in with Twitter
+                        now (before you close this browser). Once you sign-in you can add more admin users, link more Spotify accounts
+                        and create the ultimate library for your Jukebox. It's easy and it's completely free.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="loading">
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h1>Loading...</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="error">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <strong>Error!</strong> {{ error }}
+            </div>
+        </div>
+    </div>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+

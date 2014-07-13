@@ -1,4 +1,5 @@
-﻿using Radiostr.Entities;
+﻿using System;
+using Radiostr.Entities;
 using Radiostr.Services;
 
 namespace Radiostr.Web.Controllers
@@ -7,6 +8,12 @@ namespace Radiostr.Web.Controllers
     {
         public StationController() : base(RadiostrService<Station>.CreateService())
         {
+        }
+
+        public override int Post(Station model)
+        {
+            model.WhenCreated = DateTime.Now;
+            return base.Post(model);
         }
     }
 }

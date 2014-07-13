@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
-using Radiostr.Tests.Services;
 using Radiostr.Web.Controllers;
 
 namespace Radiostr.Web.Tests.Controllers

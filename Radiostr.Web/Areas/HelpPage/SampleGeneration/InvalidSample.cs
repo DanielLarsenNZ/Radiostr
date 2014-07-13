@@ -1,6 +1,6 @@
 using System;
 
-namespace Radiostr.Web.Areas.HelpPage
+namespace Radiostr.Web.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.

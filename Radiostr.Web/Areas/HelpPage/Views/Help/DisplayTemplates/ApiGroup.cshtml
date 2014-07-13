@@ -2,7 +2,6 @@
 @using System.Web.Http.Controllers
 @using System.Web.Http.Description
 @using Radiostr.Web.Areas.HelpPage
-@using Radiostr.Web.Areas.HelpPage.Models
 @model IGrouping<HttpControllerDescriptor, ApiDescription>
 
 @{
@@ -11,7 +10,7 @@
         null;
 }
 
-<h2 id="@Model.Key">@Model.Key.ControllerName</h2>
+<h2 id="@Model.Key.ControllerName">@Model.Key.ControllerName</h2>
 @if (!String.IsNullOrEmpty(controllerDocumentation))
 {
     <p>@controllerDocumentation</p>

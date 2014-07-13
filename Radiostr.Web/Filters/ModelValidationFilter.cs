@@ -5,6 +5,7 @@ using System.Web.Http.Filters;
 
 namespace Radiostr.Web.Filters
 {
+    // http://www.asp.net/web-api/overview/formats-and-model-binding/model-validation-in-aspnet-web-api
     public class ModelValidationFilter : ActionFilterAttribute
     {
         public override void OnActionExecuting(HttpActionContext actionContext)

@@ -1,4 +1,4 @@
-namespace Radiostr.Web.Areas.HelpPage
+namespace Radiostr.Web.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

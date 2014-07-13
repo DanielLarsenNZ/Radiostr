@@ -3,6 +3,7 @@ using Scale.Logger;
 
 namespace Radiostr.Web.Filters
 {
+    // http://www.asp.net/web-api/overview/web-api-routing-and-actions/exception-handling
     public class RadiostrExceptionFilter : ExceptionFilterAttribute
     {
         public override void OnException(HttpActionExecutedContext context)

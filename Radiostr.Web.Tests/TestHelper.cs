@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
 using Radiostr.Entities;
-using Radiostr.Helpers;
-using Radiostr.Repositories;
-using Radiostr.Services;
 using Radiostr.Web.Controllers;
 
-namespace Radiostr.Tests.Services
+namespace Radiostr.Web.Tests
 {
     public class TestHelper
     {

@@ -9,6 +9,10 @@ _DansNotes.txt
 *.user
 *.sln.docstates
 Readme.html
+appSettings.config
+_*
+
+
 
 # Build results
 [Dd]ebug/

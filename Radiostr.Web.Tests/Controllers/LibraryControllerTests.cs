@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
-using Radiostr.Tests.Services;
 using Radiostr.Web.Controllers;
-using System.Linq;
 
 namespace Radiostr.Web.Tests.Controllers
 {
