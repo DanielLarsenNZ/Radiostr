@@ -1,10 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Radiostr.Services;
+using Radiostr.Web.Metrics;
 
 namespace Radiostr.Web.Controllers
 {
-    public abstract class RadiostrController<T> : ApiController where T:class 
+    /// <summary>
+    /// Base controller that all Radiostr API controllers should inherit from.
+    /// </summary>
+    public abstract class RadiostrController : ApiController
+    {
+        /// <summary>
+        /// Metrics Reigistry for creating, registering and getting lightweight metrics-style counters and guages.
+        /// </summary>
+        protected readonly MetricsRegistry Metrics;
+
+        protected RadiostrController()
+        {
+            Metrics = new MetricsRegistry();
+        }
+    }
+
+    /// <summary>
+    /// A generic API controller of type <see cref="T"/> for simple Radiostr CRUD APIs.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public abstract class RadiostrController<T> : RadiostrController where T : class 
     {
         protected RadiostrController(RadiostrService<T> service)
         {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Radiostr.Web.Metrics
 {
@@ -16,7 +18,10 @@ namespace Radiostr.Web.Metrics
             _timer = _registry.Timer(key);
         }
 
+        [JsonProperty(PropertyName = "data")]
         public object Data { get; set; }
+
+        [JsonProperty(PropertyName = "metrics")]
         public MetricsModel Metrics { get; set; }
         
         public void Dispose()
