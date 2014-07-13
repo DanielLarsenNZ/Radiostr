@@ -10,6 +10,10 @@ using Scale.Logger;
 
 namespace Radiostr.Web.Http
 {
+    /// <summary>
+    /// An HTTP Client for communicating with the Spotify Web API.
+    /// </summary>
+    /// <remarks>See https://developer.spotify.com/web-api/ </remarks>
     public class SpotifyHttpClient : IHttpClient
     {
         private readonly HttpClient _httpClient;
@@ -26,6 +30,13 @@ namespace Radiostr.Web.Http
                     {"Radiostr.Web.Http", "SpotifyHttpClient", GetHashCode()}));
         }
 
+        /// <summary>
+        /// Makes an HTTP(S) GET request to <seealso cref="requestUrl"/> and returns the result as (awaitable Task of) <seealso cref="string"/>.
+        /// </summary>
+        /// <param name="requestUrl">The entire request URL.</param>
+        /// <returns>An (awaitable Task of) <seealso cref="string"/></returns>
+        /// <remarks>Will Authorise using the values of the SpotifyApiClientId and SpotifyApiClientSecret appSettings. See 
+        /// https://developer.spotify.com/web-api/authorization-guide/#client-credentials-flow </remarks>
         public async Task<string> GetAsync(string requestUrl)
         {
             await SetAuthorizationHeader();
@@ -38,6 +49,14 @@ namespace Radiostr.Web.Http
             return await response.Content.ReadAsStringAsync();
         }
 
+        /// <summary>
+        /// Makes an HTTP(S) POST request to <seealso cref="requestUrl"/> with <seealso cref="model"/> as the request body. Returns the result as (awaitable Task of) <seealso cref="string"/>.
+        /// </summary>
+        /// <param name="requestUrl">The entire request URL.</param>
+        /// <param name="model">The model to serialise into the request body.</param>
+        /// <returns>An (awaitable Task of) <seealso cref="string"/> </returns>
+        /// <remarks>Will Authorise using the values of the SpotifyApiClientId and SpotifyApiClientSecret appSettings. See 
+        /// https://developer.spotify.com/web-api/authorization-guide/#client-credentials-flow </remarks>
         public async Task<string> PostAsync(string requestUrl, object model)
         {
             throw new NotImplementedException();
