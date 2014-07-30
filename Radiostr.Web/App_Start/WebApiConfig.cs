@@ -15,7 +15,7 @@ namespace Radiostr.Web
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
             config.Filters.Add(new RadiostrExceptionFilter());
             config.Filters.Add(new ModelValidationFilter());
-            config.EnableCors(new EnableCorsAttribute("http://localhost:60080", "accept, content-type", "GET, PUT, POST, DELETE")); //TODO: -> Config
+            //config.EnableCors(new EnableCorsAttribute("http://localhost:60080", "accept, content-type", "GET, PUT, POST, DELETE")); //TODO: -> Config
 
             // Web API routes
             config.MapHttpAttributeRoutes();

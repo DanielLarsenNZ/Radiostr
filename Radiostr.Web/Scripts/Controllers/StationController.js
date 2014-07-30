@@ -30,7 +30,7 @@
         $scope.error = null;
         $scope.loading = true;
 
-        $http.get('/api/Spotify/GetPlaylists?SpotifyUserId=' + $scope.spotify.userId).success(function (data) {
+        $http.get('/api/Playlist/Get?service=spotify&userId=' + $scope.spotify.userId).success(function (data) {
             $scope.spotify.playlists = data.data;
             $scope.loading = false;
             $scope.choosePlaylists = true;
@@ -39,4 +39,19 @@
             $scope.loading = false;
         });
     };
+
+    $scope.addPlaylist = function(playlist) {
+        playlist.Add = true;
+        playlist.Loading = true;
+
+        var model = { ServiceName: "spotify", PlaylistId: playlist.Id };
+
+        $http.post('/api/Playlist', model).success(function (data) {
+            playlist.Loading = false;
+        }).error(function(data) {
+            $scope.error = data.Message;
+            playlist.Loading = false;
+        });
+    };
+
 }

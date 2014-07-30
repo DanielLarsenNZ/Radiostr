@@ -37,30 +37,23 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebRole1\Radiostr.Azure.Transmitter.csproj">
-      <Name>Radiostr.Azure.Transmitter</Name>
-      <Project>{6b3ba420-cfd3-4abb-9e86-d2d720ea87b6}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>Radiostr.Azure.Transmitter</RoleName>
-    </ProjectReference>
-    <ProjectReference Include="..\WorkerRole1\Radiostr.Azure.Selector.csproj">
-      <Name>Radiostr.Azure.Selector</Name>
+    <ProjectReference Include="..\WorkerRole1\Radiostr.Worker.csproj">
+      <Name>Radiostr.Worker</Name>
       <Project>{f65d479b-4324-4ce9-ad60-794c122a97c0}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>Radiostr.Azure.Selector</RoleName>
+      <RoleName>Radiostr.Worker</RoleName>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Radiostr.Azure.TransmitterContent" />
-    <Folder Include="Radiostr.Azure.SelectorContent" />
+    <Folder Include="Radiostr.WorkerContent" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Radiostr.Azure.TransmitterContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Radiostr.Azure.SelectorContent\diagnostics.wadcfg">
+    <Content Include="Radiostr.WorkerContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

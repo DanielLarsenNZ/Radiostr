@@ -43,12 +43,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DapperExtensions.1.4.3\lib\net40\DapperExtensions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Scale.Logger">
       <HintPath>..\packages\FeatherAndScale.Logger.1.0.2\lib\net45\Scale.Logger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,6 +95,7 @@
     <Compile Include="Services\LibraryService.cs" />
     <Compile Include="Services\LibraryTrackService.cs" />
     <Compile Include="Services\RadiostrService.cs" />
+    <Compile Include="Services\SpotifyService.cs" />
     <Compile Include="Services\TrackImportService.cs" />
     <Compile Include="Services\TrackSearchService.cs" />
     <Compile Include="Services\TrackService.cs" />
@@ -98,6 +104,14 @@
     <ProjectReference Include="..\Radiostr.Data\Radiostr.Data.csproj">
       <Project>{b6b0545e-fce9-4b5b-a015-348cb974f25d}</Project>
       <Name>Radiostr.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radiostr.Model\Radiostr.Model.csproj">
+      <Project>{d3a94cda-fa92-43ae-a6a7-b7538141e05a}</Project>
+      <Name>Radiostr.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radiostr.SpotifyWebApi\Radiostr.SpotifyWebApi.csproj">
+      <Project>{e0bb2169-4cc0-4856-a699-295a8b1ff908}</Project>
+      <Name>Radiostr.SpotifyWebApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

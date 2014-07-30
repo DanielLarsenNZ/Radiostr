@@ -1,4 +1,9 @@
-﻿@section scripts
+﻿@section styles
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/csspinner.css")" />
+}
+
+@section scripts
 {
     <script src="@Url.Content("~/Scripts/Controllers/StationController.js")"></script>
 }
@@ -77,7 +82,14 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ playlist.Name }} <span class="badge pull-right">{{ playlist.TrackCount }}</span></td>
                                 <td>{{ playlist.OwnerUserId }}</td>
-                                <td><button class="btn btn-success" ng-click="addPlaylist()">Add</button></td>
+                                <td>
+                                    <button class="btn btn-success" ng-click="addPlaylist(playlist)"
+                                            ng-disabled="playlist.Add">Add</button>
+                                    <div class="csspinner bar"
+                                         ng-show="playlist.Loading">
+                                        Loading...
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
