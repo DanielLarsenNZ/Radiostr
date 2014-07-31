@@ -37,7 +37,7 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorkerRole1\Radiostr.Worker.csproj">
+    <ProjectReference Include="..\Radiostr.Worker\Radiostr.Worker.csproj">
       <Name>Radiostr.Worker</Name>
       <Project>{f65d479b-4324-4ce9-ad60-794c122a97c0}</Project>
       <Private>True</Private>

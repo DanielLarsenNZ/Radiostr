@@ -52,6 +52,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Radiostr.SpotifyWebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Radiostr-SpotifyWebApi.1.0.0.0\lib\net45\Radiostr.SpotifyWebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Scale.Logger, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FeatherAndScale.Logger.1.0.2\lib\net45\Scale.Logger.dll</HintPath>
@@ -334,10 +338,6 @@
     <ProjectReference Include="..\Radiostr.Model\Radiostr.Model.csproj">
       <Project>{d3a94cda-fa92-43ae-a6a7-b7538141e05a}</Project>
       <Name>Radiostr.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Radiostr.SpotifyWebApi\Radiostr.SpotifyWebApi.csproj">
-      <Project>{e0bb2169-4cc0-4856-a699-295a8b1ff908}</Project>
-      <Name>Radiostr.SpotifyWebApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Radiostr.Storage\Radiostr.Storage.csproj">
       <Project>{e24ae0ad-d71c-423c-8363-940ba2eb4e24}</Project>
