@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Services;
 
@@ -9,13 +10,13 @@ namespace Radiostr.Tests.Services
     {
         [TestMethod]
         [TestCategory("integration")]
-        public void BigLookupTrackTest()
+        public async Task BigLookupTrackTest()
         {
             // Arrange
             var service = TrackSearchService.CreateService();
 
             // Act
-            int trackId = service.FindTrackByUri("http://spotify.com/track/abc123");
+            int trackId = await service.FindTrackByUri("http://spotify.com/track/abc123");
             Trace.WriteLine("trackId = " + trackId);
             
             var result = service.FindTrack("New artist", "New title", "New album");

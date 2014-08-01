@@ -35,18 +35,5 @@ namespace Radiostr.Storage.Queue
             return Message;
         }
 
-    }
-    
-    public class QueueMessage<T> : QueueMessage where T : class
-    {
-        public QueueMessage(string queueName, string message) : base(queueName, message)
-        {
-            
-        }
-
-        public T GetModel()
-        {
-            return JsonConvert.DeserializeObject<T>(Message);
-        }
-    }
+    }    
 }

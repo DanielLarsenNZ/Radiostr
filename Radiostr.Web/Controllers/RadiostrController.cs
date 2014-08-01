@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Radiostr.Services;
 using Radiostr.Web.Metrics;
@@ -41,9 +42,9 @@ namespace Radiostr.Web.Controllers
         }
 
         // GET api/t
-        public virtual IEnumerable<T> Get(dynamic param)
+        public async virtual Task<IEnumerable<T>> Get(dynamic param)
         {
-            return Service.GetList(param);
+            return await Service.GetList(param);
         }
 
         // POST api/t

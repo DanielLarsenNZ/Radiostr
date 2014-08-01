@@ -69,6 +69,10 @@
       <Project>{b6b0545e-fce9-4b5b-a015-348cb974f25d}</Project>
       <Name>Radiostr.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Radiostr.Model\Radiostr.Model.csproj">
+      <Project>{d3a94cda-fa92-43ae-a6a7-b7538141e05a}</Project>
+      <Name>Radiostr.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Radiostr\Radiostr.csproj">
       <Project>{a05a96ff-98b9-4f28-aabe-66013820d37e}</Project>
       <Name>Radiostr</Name>

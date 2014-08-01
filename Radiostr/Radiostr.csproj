@@ -58,6 +58,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,9 +80,6 @@
     <Compile Include="Helpers\MbidHelper.cs" />
     <Compile Include="Helpers\MockSecurityHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
-    <Compile Include="Models\ArtistModel.cs" />
-    <Compile Include="Models\TrackImportModel.cs" />
-    <Compile Include="Models\TrackModel.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITrackAlbumRepository.cs" />
     <Compile Include="Repositories\RadiostrRepository.cs" />

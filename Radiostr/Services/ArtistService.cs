@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Radiostr.Data;
 using Radiostr.Entities;
 using Radiostr.Helpers;
@@ -12,9 +13,9 @@ namespace Radiostr.Services
         {
         }
 
-        public override IEnumerable<Artist> GetList(dynamic param)
+        public async override Task<IEnumerable<Artist>> GetList(dynamic param)
         {
-            return Repository.GetList("select * from Artist where Name = @artist", param);
+            return await Repository.GetList("select * from Artist where Name = @artist", param);
         }
 
         public static ArtistService CreateArtistService()

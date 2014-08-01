@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Dapper;
 using DapperExtensions;
 using Radiostr.Data;
@@ -12,12 +13,12 @@ namespace Radiostr.Repositories
             Db = db;
         }
 
-        public IEnumerable<dynamic> Query(string sql, object param)
+        public async Task<IEnumerable<dynamic>> Query(string sql, object param)
         {
             using (var conn = Db.GetDbConnection())
             {
                 conn.Open();
-                var result = conn.Query(sql, param);
+                var result = await conn.QueryAsync<dynamic>(sql, param);
                 conn.Close();
                 return result;
             }
@@ -57,12 +58,12 @@ namespace Radiostr.Repositories
             }
         }
 
-        public IEnumerable<T> GetList(string sql, object param)
+        public async Task<IEnumerable<T>> GetList(string sql, object param)
         {
             using (var conn = Db.GetDbConnection())
             {
                 conn.Open();
-                var entities = conn.Query<T>(sql, param);
+                var entities = await conn.QueryAsync<T>(sql, param);
                 conn.Close();
                 return entities;
             }
@@ -88,12 +89,12 @@ namespace Radiostr.Repositories
             }
         }
 
-        public IEnumerable<T> Query<TEntity>(string sql, object param)
+        public async Task<IEnumerable<T>> Query<TEntity>(string sql, object param)
         {
             using (var conn = Db.GetDbConnection())
             {
                 conn.Open();
-                var result = conn.Query<T>(sql, param);
+                var result = await conn.QueryAsync<T>(sql, param);
                 conn.Close();
                 return result;
             }

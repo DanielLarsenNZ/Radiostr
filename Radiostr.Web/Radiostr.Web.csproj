@@ -52,10 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Radiostr.SpotifyWebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Radiostr-SpotifyWebApi.1.0.0.0\lib\net45\Radiostr.SpotifyWebApi.dll</HintPath>
-    </Reference>
     <Reference Include="Scale.Logger, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FeatherAndScale.Logger.1.0.2\lib\net45\Scale.Logger.dll</HintPath>

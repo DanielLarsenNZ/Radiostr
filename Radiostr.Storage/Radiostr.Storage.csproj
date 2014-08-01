@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Queue\AzureQueueMessage.cs" />
+    <Compile Include="Queue\Extensions\QueueMessageExtensions.cs" />
     <Compile Include="Queue\IQueueMessage.cs" />
     <Compile Include="Queue\IQueueStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

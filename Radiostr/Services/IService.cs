@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Radiostr.Services
 {
@@ -6,7 +7,7 @@ namespace Radiostr.Services
     {
         int Create(T model);
         T Get(int id);
-        IEnumerable<T> GetList(dynamic param);
+        Task<IEnumerable<T>> GetList(dynamic param);
         void Update(T model);
         void Delete(T model);
     }

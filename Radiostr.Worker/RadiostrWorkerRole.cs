@@ -5,22 +5,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Radiostr.Model;
+using Radiostr.Services;
 using Radiostr.Storage.Queue;
 using System.Reactive;
 using System.Reactive.Linq;
-using Scale.Logger;
+using Radiostr.Storage.Queue.Extensions;
 
 namespace Radiostr.Worker
 {
     public class RadiostrWorkerRole : RoleEntryPoint
     {
-        private readonly AzureQueueStorage _queue = new AzureQueueStorage(new LoggerRegistry());
+        private readonly AzureQueueStorage _queue = new AzureQueueStorage();
         private IDisposable _subscription;
 
         public override void Run()
         {
-            // This is a sample worker implementation. Replace with your logic.
-            Trace.TraceInformation("RadiostrWorkerRole entry point called");
+            Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Run()");
 
             _queue.CreateQueues(new[] { PlaylistImportModel.QueueName }).Wait();
 
@@ -29,12 +29,11 @@ namespace Radiostr.Worker
                 from result in Observable.FromAsync(Execute).Catch(Observable.Empty<Unit>())
                 select result;
             _subscription = observable.Subscribe();
-
         }
 
         private async Task Execute()
         {
-            Trace.TraceInformation("Execute");
+            Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute()");
             var message = await _queue.GetMessage(PlaylistImportModel.QueueName);
             
             if (message == null)
@@ -43,7 +42,11 @@ namespace Radiostr.Worker
                 return;
             }
 
-            Trace.TraceInformation(message.GetMessageAsString());
+            Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute got message " + message);
+
+            var service = SpotifyService.GetService();
+            await service.ImportPlaylist(message.GetModel<PlaylistImportModel>());
+
             await _queue.DeleteMessage(message);
         }
 
