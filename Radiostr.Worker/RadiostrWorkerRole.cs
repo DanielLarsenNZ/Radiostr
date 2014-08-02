@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Radiostr.Model;
 using Radiostr.Services;
@@ -15,7 +17,7 @@ namespace Radiostr.Worker
 {
     public class RadiostrWorkerRole : RoleEntryPoint
     {
-        private readonly AzureQueueStorage _queue = new AzureQueueStorage();
+        private readonly AzureQueueStorage _queue = AzureQueueStorage.GetStorage();
         private IDisposable _subscription;
 
         public override void Run()
@@ -33,21 +35,40 @@ namespace Radiostr.Worker
 
         private async Task Execute()
         {
-            Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute()");
-            var message = await _queue.GetMessage(PlaylistImportModel.QueueName);
-            
-            if (message == null)
+            try
             {
-                Trace.TraceInformation("No message on Queue");
-                return;
+                Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute()");
+                var message = await _queue.GetMessage(PlaylistImportModel.QueueName);
+
+                if (message == null) return;
+
+                var settings = new NameValueCollection
+                {
+                    {"StorageConnectionString", CloudConfigurationManager.GetSetting("StorageConnectionString")},
+                    {"SpotifyApiClientId", CloudConfigurationManager.GetSetting("SpotifyApiClientId")},
+                    {"SpotifyApiClientSecret", CloudConfigurationManager.GetSetting("SpotifyApiClientSecret")},
+                };
+
+                var service = SpotifyService.GetService(settings);
+                
+                try
+                {
+                    await service.ImportPlaylist(message.GetModel<PlaylistImportModel>());
+                }
+                catch (Exception ex)
+                {
+                    message.SetFailMessage(ex.Message);
+                    _queue.UpdateMessage(message).Wait();
+                    throw;
+                }
+
+                await _queue.DeleteMessage(message);
             }
-
-            Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute got message " + message);
-
-            var service = SpotifyService.GetService();
-            await service.ImportPlaylist(message.GetModel<PlaylistImportModel>());
-
-            await _queue.DeleteMessage(message);
+            catch (Exception ex)
+            {
+                Trace.TraceError("{0}\r\n{1}", ex.Message, ex.StackTrace);
+                throw;
+            }
         }
 
         public override bool OnStart()

@@ -8,7 +8,7 @@ namespace Radiostr.Web
         public static void Startup()
         {
             // init queues
-            var queue = new AzureQueueStorage();
+            var queue = AzureQueueStorage.GetStorage();
             queue.CreateQueues(new[] {PlaylistImportModel.QueueName}).Wait();
         }
     }

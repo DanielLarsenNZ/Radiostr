@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Net.Http;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace Radiostr.Services
             if (importModel == null) throw new ArgumentNullException("importModel");
             if (importModel.ServiceName != "spotify") throw new NotSupportedException(importModel.ServiceName + " is not a supported Service Name for SpotifyService.");
             
-            var response = await _playlistsApi.GetTracks(importModel.UserId, importModel.PlaylistId);
+            var response = await _playlistsApi.GetTracks(importModel.ServiceUserId, importModel.PlaylistId);
             var items = new List<dynamic>(response.items);
 
             // Map to TrackImportModels
@@ -85,20 +86,25 @@ namespace Radiostr.Services
                 LibraryId = importModel.LibraryId,
                 StationId = int.Parse(importModel.StationId),
                 Tracks = tracks.ToArray(),
-                Tags = new[] { "spotify", importModel.UserId }    //TODO: https://github.com/DanielLarsenNZ/Radiostr/issues/9
+                Tags = importModel.Tags    
             };
 
             await _trackImportService.ImportTracks(trackImportModel);
 
         }
 
-        public static SpotifyService GetService()
+        public static SpotifyService GetService(NameValueCollection settings)
         {
             var http = new RestHttpClient(new HttpClient());
             return
                 new SpotifyService(new PlaylistsApi(http,
-                    new ClientCredentialsAuthorizationApi(http, System.Configuration.ConfigurationManager.AppSettings,
+                    new ClientCredentialsAuthorizationApi(http, settings,
                         new RuntimeMemoryCache(MemoryCache.Default))), TrackImportService.CreateTrackImportService());
+        }
+
+        public static SpotifyService GetService()
+        {
+            return GetService(new NameValueCollection(System.Configuration.ConfigurationManager.AppSettings));
         }
 
     }

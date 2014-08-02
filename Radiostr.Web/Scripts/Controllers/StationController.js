@@ -44,7 +44,14 @@
         playlist.Add = true;
         playlist.Loading = true;
 
-        var model = { ServiceName: "spotify", PlaylistId: playlist.Id };
+        var model = {
+            ServiceName: "spotify",
+            PlaylistId: playlist.Id,
+            StationId: $scope.station.Id,
+            UserId: $scope.station.StationOwnerId,
+            ServiceUserId: $scope.spotify.userId,
+            Tags: ["spotify", playlist.Name, playlist.OwnerUserId]
+        };
 
         $http.post('/api/Playlist', model).success(function (data) {
             playlist.Loading = false;

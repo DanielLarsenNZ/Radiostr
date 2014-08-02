@@ -6,6 +6,8 @@
     </Imports>
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" />
+      <Setting name="SpotifyApiClientId" />
+      <Setting name="SpotifyApiClientSecret" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

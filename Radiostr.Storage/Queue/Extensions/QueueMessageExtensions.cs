@@ -6,7 +6,7 @@ namespace Radiostr.Storage.Queue.Extensions
     {
         public static T GetModel<T>(this QueueMessage message)
         {
-            return JsonConvert.DeserializeObject<T>(message.GetMessageAsString());
+            return JsonConvert.DeserializeObject<T>(message.Data.ToString());
         }
     }
 }

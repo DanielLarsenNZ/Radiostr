@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radiostr.Cache", "Radiostr.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radiostr.Model", "Radiostr.Model\Radiostr.Model.csproj", "{D3A94CDA-FA92-43AE-A6A7-B7538141E05A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Radiostr.Storage.Tests", "Radiostr.Storage.Tests\Radiostr.Storage.Tests.csproj", "{C4F8F866-B876-44DC-AE41-D4AAE3262864}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{D3A94CDA-FA92-43AE-A6A7-B7538141E05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3A94CDA-FA92-43AE-A6A7-B7538141E05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3A94CDA-FA92-43AE-A6A7-B7538141E05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F8F866-B876-44DC-AE41-D4AAE3262864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F8F866-B876-44DC-AE41-D4AAE3262864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F8F866-B876-44DC-AE41-D4AAE3262864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F8F866-B876-44DC-AE41-D4AAE3262864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,5 +90,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D9A97147-0414-4189-AC54-AB1A26BDD8F1} = {FD2FF51B-1FFC-4AD5-8C72-88F9916D8E27}
 		{04F2AC9C-8FB1-4BDD-B060-183E540A7ABC} = {FD2FF51B-1FFC-4AD5-8C72-88F9916D8E27}
+		{C4F8F866-B876-44DC-AE41-D4AAE3262864} = {FD2FF51B-1FFC-4AD5-8C72-88F9916D8E27}
 	EndGlobalSection
 EndGlobal
