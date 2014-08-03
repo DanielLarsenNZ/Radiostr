@@ -37,10 +37,10 @@ namespace Radiostr.Model
         public string PlaylistId { get; set; }
 
         /// <summary>
-        /// The Service's UserId for the User that has access to the Playlist.
+        /// The Service's UserId for the User that owns the Playlist.
         /// </summary>
         [Required]
-        public string ServiceUserId { get; set; }
+        public string PlaylistOwnerId { get; set; }
 
         /// <summary>
         /// Tags to apply to every track that is imported from this playlist.

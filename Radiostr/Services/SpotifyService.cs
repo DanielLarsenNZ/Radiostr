@@ -64,7 +64,7 @@ namespace Radiostr.Services
             if (importModel == null) throw new ArgumentNullException("importModel");
             if (importModel.ServiceName != "spotify") throw new NotSupportedException(importModel.ServiceName + " is not a supported Service Name for SpotifyService.");
             
-            var response = await _playlistsApi.GetTracks(importModel.ServiceUserId, importModel.PlaylistId);
+            var response = await _playlistsApi.GetTracks(importModel.PlaylistOwnerId, importModel.PlaylistId);
             var items = new List<dynamic>(response.items);
 
             // Map to TrackImportModels
@@ -75,7 +75,7 @@ namespace Radiostr.Services
                 {
                     Album = new AlbumImportModel { Name = item.track.album.name, Uri = item.track.album.uri },
                     Artist = new ArtistImportModel { Name = item.track.artists[0].name, Uri = item.track.artists[0].uri },
-                    Duration = item.track.duration,
+                    Duration = item.track.duration_ms,
                     Uri = item.track.uri,
                     Title = item.track.name
                 });

@@ -48,12 +48,13 @@
             ServiceName: "spotify",
             PlaylistId: playlist.Id,
             StationId: $scope.station.Id,
+            //TODO:LibraryId
             UserId: $scope.station.StationOwnerId,
-            ServiceUserId: $scope.spotify.userId,
+            PlaylistOwnerId: playlist.OwnerUserId,
             Tags: ["spotify", playlist.Name, playlist.OwnerUserId]
         };
 
-        $http.post('/api/Playlist', model).success(function (data) {
+        $http.post('/api/Playlist', model).success(function () {
             playlist.Loading = false;
         }).error(function(data) {
             $scope.error = data.Message;
