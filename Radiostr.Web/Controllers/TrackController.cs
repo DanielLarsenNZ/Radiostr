@@ -1,5 +1,6 @@
-﻿using System.Web.Http;
-using Radiostr.Models;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
+using Radiostr.Model;
 using Radiostr.Services;
 using Radiostr.Web.Metrics;
 
@@ -16,13 +17,13 @@ namespace Radiostr.Web.Controllers
             _metrics = new MetricsRegistry();
         }
 
-        public MetricsResult Post(TrackImportModel model)
+        public async Task<MetricsResult> Post(TracksImportModel model)
         {
             MetricsResult result;
 
             using (result = new MetricsResult(_metrics, "Radiostr.Web.Controllers.Post"))
             {
-                result.Data = _trackImportService.ImportTracks(model);
+                await _trackImportService.ImportTracks(model);
             }
 
             return result;

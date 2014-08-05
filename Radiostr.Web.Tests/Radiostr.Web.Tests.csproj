@@ -114,6 +114,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Radiostr.Model\Radiostr.Model.csproj">
+      <Project>{d3a94cda-fa92-43ae-a6a7-b7538141e05a}</Project>
+      <Name>Radiostr.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Radiostr.Web\Radiostr.Web.csproj">
       <Project>{0C57EA85-6F38-46C2-AF40-A1032F3C76DD}</Project>
       <Name>Radiostr.Web</Name>

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Radiostr.Results;
 
 namespace Radiostr.Services
@@ -8,12 +9,12 @@ namespace Radiostr.Services
         /// Finds Track by title, artist and duration.
         /// </summary>
         /// <returns>{Found, Message, ArtistId, AlbumId, TrackId}</returns>
-        TrackSearchResult FindTrack(string artist, string title, string album);
+        Task<TrackSearchResult> FindTrack(string artist, string title, string album);
 
         /// <summary>
         /// Finds Track by URI
         /// </summary>
         /// <returns>TrackId or 0 if not found</returns>
-        int FindTrackByUri(string uri);
+        Task<int> FindTrackByUri(string uri);
     }
 }

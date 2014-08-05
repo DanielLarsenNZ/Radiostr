@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Radiostr.Data;
 using Radiostr.Entities;
 using Radiostr.Helpers;
@@ -12,9 +13,9 @@ namespace Radiostr.Services
         {
         }
 
-        public override IEnumerable<Library> GetList(dynamic param)
+        public async override Task<IEnumerable<Library>> GetList(dynamic param)
         {
-            return Repository.GetList("select * from Library where StationId = @stationId", param);
+            return await Repository.GetList("select * from Library where StationId = @stationId", param);
         }
 
         /// <summary>

@@ -16,8 +16,9 @@
         // hardcoding test user Id for now
         $scope.station.StationOwnerId = 1;
 
-        $http.post('/api/Station/', $scope.station).success(function (data) {
-            $scope.station.Id = data;
+        $http.post('/api/Station/?createLibrary=true', $scope.station).success(function (data) {
+            $scope.station.Id = data.data.StationId;
+            $scope.libraryId = data.data.LibraryId;
             $scope.loading = false;
             $scope.chooseMusic = true;
         }).error(function (data) {
@@ -44,9 +45,17 @@
         playlist.Add = true;
         playlist.Loading = true;
 
-        var model = { ServiceName: "spotify", PlaylistId: playlist.Id };
+        var model = {
+            ServiceName: "spotify",
+            PlaylistId: playlist.Id,
+            StationId: $scope.station.Id,
+            LibraryId: $scope.libraryId,
+            UserId: $scope.station.StationOwnerId,
+            PlaylistOwnerId: playlist.OwnerUserId,
+            Tags: ["spotify", playlist.Name, playlist.OwnerUserId]
+        };
 
-        $http.post('/api/Playlist', model).success(function (data) {
+        $http.post('/api/Playlist', model).success(function () {
             playlist.Loading = false;
         }).error(function(data) {
             $scope.error = data.Message;

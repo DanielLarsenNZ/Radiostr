@@ -1,12 +1,13 @@
-﻿using Radiostr.Models;
+﻿using System.Threading.Tasks;
+using Radiostr.Model;
 
 namespace Radiostr.Services
 {
     /// <summary>
-    /// Imports Tracks into a Library, returns a lists of messages.
+    /// Imports Tracks into a Library.
     /// </summary>
     public interface ITrackImportService
     {
-        string[] ImportTracks(TrackImportModel model);
+        Task ImportTracks(TracksImportModel model);
     }
 }

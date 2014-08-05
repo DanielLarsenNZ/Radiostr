@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
-using Radiostr.Models;
+using Radiostr.Model;
 using Radiostr.Services;
 
 namespace Radiostr.Tests.Services
@@ -12,7 +13,7 @@ namespace Radiostr.Tests.Services
     {
         [TestMethod]
         [TestCategory("integration")]
-        public void BigImportTracksTest()
+        public async Task BigImportTracksTest()
         {
             // Arrange
             var service = TrackImportService.CreateTrackImportService();
@@ -38,19 +39,19 @@ namespace Radiostr.Tests.Services
 
             Trace.WriteLine("libraryId = " + libraryId);
 
-            var model = new TrackImportModel
+            var model = new TracksImportModel
             {
                 LibraryId = libraryId,
                 StationId = stationId,
                 Tracks = new[]
                 {
-                    new TrackModel
+                    new TrackImportModel
                     {
-                        Artist = new ArtistModel {Name = "Artist1"},
+                        Artist = new ArtistImportModel {Name = "Artist1"},
                         Title = "Title1",
-                        Album = "Album 1",
-                        Duration = 210f,
-                        Tags = "nights, reggae",
+                        Album = new AlbumImportModel{Name = "Album 1"},
+                        Duration = 210000,
+                        Tags = new []{"nights, reggae"},
                         Uri = "http://spotify.com/track/tr67uw783y"
                     }
                 }
@@ -58,17 +59,9 @@ namespace Radiostr.Tests.Services
 
 
             // Act
-            string[] result = service.ImportTracks(model);
-            foreach (string message in result)
-            {
-                Trace.WriteLine(message);
-            }
+            await service.ImportTracks(model);
 
-            result = service.ImportTracks(model);
-            foreach (string message in result)
-            {
-                Trace.WriteLine(message);
-            }
+            await service.ImportTracks(model);
 
             // Assert
 

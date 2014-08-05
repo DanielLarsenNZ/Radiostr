@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Dapper;
 using DapperExtensions;
 using Radiostr.Data;
@@ -7,23 +8,54 @@ namespace Radiostr.Repositories
 {
     internal class RadiostrRepository : IRepository
     {
+        protected readonly IRadiostrDbConnection Db;
+
         internal RadiostrRepository(IRadiostrDbConnection db)
         {
             Db = db;
         }
 
-        public IEnumerable<dynamic> Query(string sql, object param)
+        /// <summary>
+        /// Executes a SQL command and params aginst a DB connection. Returns the result as IEnumerable{dynamic}.
+        /// </summary>
+        public async Task<IEnumerable<dynamic>> Query(string sql, object param)
         {
             using (var conn = Db.GetDbConnection())
             {
                 conn.Open();
-                var result = conn.Query(sql, param);
+                var result = await conn.QueryAsync<dynamic>(sql, param);
                 conn.Close();
                 return result;
             }
         }
 
-        protected readonly IRadiostrDbConnection Db;
+        /// <summary>
+        /// Executes a SQL command and params aginst a DB connection. Returns the result as IEnumerable{T}.
+        /// </summary>
+        public async Task<IEnumerable<T>> Query<T>(string sql, object param)
+        {
+            using (var conn = Db.GetDbConnection())
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<T>(sql, param);
+                conn.Close();
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Executes a SQL command and params aginst a DB connection. Returns the number of rows affected.
+        /// </summary>
+        public async Task<int> Execute(string sql, object param)
+        {
+            using (var conn = Db.GetDbConnection())
+            {
+                conn.Open();
+                var result = await conn.ExecuteAsync(sql, param);
+                conn.Close();
+                return result;
+            }
+        }
     }
 
     internal class RadiostrRepository<T> : RadiostrRepository, IRepository<T> where T:class
@@ -57,12 +89,12 @@ namespace Radiostr.Repositories
             }
         }
 
-        public IEnumerable<T> GetList(string sql, object param)
+        public async Task<IEnumerable<T>> GetList(string sql, object param)
         {
             using (var conn = Db.GetDbConnection())
             {
                 conn.Open();
-                var entities = conn.Query<T>(sql, param);
+                var entities = await conn.QueryAsync<T>(sql, param);
                 conn.Close();
                 return entities;
             }
@@ -85,17 +117,6 @@ namespace Radiostr.Repositories
                 conn.Open();
                 conn.Delete(entity);
                 conn.Close();
-            }
-        }
-
-        public IEnumerable<T> Query<TEntity>(string sql, object param)
-        {
-            using (var conn = Db.GetDbConnection())
-            {
-                conn.Open();
-                var result = conn.Query<T>(sql, param);
-                conn.Close();
-                return result;
             }
         }
     }

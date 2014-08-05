@@ -26,6 +26,12 @@ namespace Radiostr.Storage.Queue
         Task<QueueMessage> GetMessage(string queueName);
 
         /// <summary>
+        /// Updates a message on the Queue.
+        /// </summary>
+        /// <param name="message">A valid and current QueueMessage.</param>
+        Task UpdateMessage(QueueMessage message);
+
+        /// <summary>
         /// Deletes the message from the Queue.
         /// </summary>
         Task DeleteMessage(QueueMessage message);

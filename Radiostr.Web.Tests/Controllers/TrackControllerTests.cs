@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
-using Radiostr.Models;
+using Radiostr.Model;
 using Radiostr.Web.Controllers;
 using Radiostr.Web.Metrics;
 
@@ -14,7 +15,7 @@ namespace Radiostr.Web.Tests.Controllers
     {
         [TestMethod]
         [TestCategory("integration")]
-        public void BigImportTrackTest()
+        public async Task BigImportTrackTest()
         {
             // Arrange
             string uid = Path.GetRandomFileName();
@@ -38,34 +39,34 @@ namespace Radiostr.Web.Tests.Controllers
                 WhenCreated = DateTime.Now
             });
 
-            var model = new TrackImportModel
+            var model = new TracksImportModel
             {
                 StationId = stationId,
                 LibraryId = libraryId,
                 Tracks = new[]
                 {
-                    new TrackModel
+                    new TrackImportModel
                     {
-                        Artist = new ArtistModel {Name = "New Artist " + uid},
-                        Album = "New Album " + uid,
+                        Artist = new ArtistImportModel {Name = "New Artist " + uid},
+                        Album = new AlbumImportModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
-                        Duration = 330f,
+                        Duration = 330000,
                         Uri = "http://new.station.com/" + uid
                     },
-                    new TrackModel
+                    new TrackImportModel
                     {
-                        Artist = new ArtistModel {Name = "New Artist " + uid},
-                        Album = "New Album " + uid,
+                        Artist = new ArtistImportModel {Name = "New Artist " + uid},
+                        Album = new AlbumImportModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
-                        Duration = 330f,
+                        Duration = 330000,
                         Uri = "http://new.station.com/" + uid
                     },
-                    new TrackModel
+                    new TrackImportModel
                     {
-                        Artist = new ArtistModel {Name = "New Artist " + uid},
-                        Album = "New Album " + uid,
+                        Artist = new ArtistImportModel {Name = "New Artist " + uid},
+                        Album = new AlbumImportModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
-                        Duration = 310f,
+                        Duration = 330000,
                         Uri = "http://new.station.com/2/" + uid
                     }
                 }
@@ -74,21 +75,10 @@ namespace Radiostr.Web.Tests.Controllers
             //var json = JsonConvert.SerializeObject(model);
 
             // Act
-            MetricsResult result = null;
-
             for (int i = 0; i < 10; i++)
             {
-                result = controller.Post(model);
-            }
-
-            Trace.WriteLine(result.Metrics);
-
-            var messages = (string[])result.Data;
-            foreach (string message in messages)
-            {
-                Trace.WriteLine(message);
+                await controller.Post(model);
             }
         }
-
     }
 }

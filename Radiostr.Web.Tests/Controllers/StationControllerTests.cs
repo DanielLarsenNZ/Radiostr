@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Entities;
 using Radiostr.Web.Controllers;
@@ -11,13 +12,13 @@ namespace Radiostr.Web.Tests.Controllers
     {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
-        public void Get()
+        public async Task Get()
         {
             // Arrange
             var controller = new StationController();
 
             // Act
-            controller.Get(new {});
+            await controller.Get(new {});
         }
 
         [TestMethod]

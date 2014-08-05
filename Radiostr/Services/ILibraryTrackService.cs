@@ -1,4 +1,5 @@
-﻿using Radiostr.Entities;
+﻿using System.Threading.Tasks;
+using Radiostr.Entities;
 
 namespace Radiostr.Services
 {
@@ -7,7 +8,7 @@ namespace Radiostr.Services
     /// </summary>
     public interface ILibraryTrackService : IService<LibraryTrack>
     {
-        bool TrackExistsInLibrary(int trackId, int libraryId);
-        LibraryTrack Get(int libraryId, int trackId);
+        Task<bool> TrackExistsInLibrary(int trackId, int libraryId);
+        Task<LibraryTrack> Get(int libraryId, int trackId);
     }
 }

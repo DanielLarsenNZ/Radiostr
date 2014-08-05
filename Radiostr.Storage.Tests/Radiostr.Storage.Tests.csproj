@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9A97147-0414-4189-AC54-AB1A26BDD8F1}</ProjectGuid>
+    <ProjectGuid>{C4F8F866-B876-44DC-AE41-D4AAE3262864}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Radiostr.Tests</RootNamespace>
-    <AssemblyName>Radiostr.Tests</AssemblyName>
+    <RootNamespace>Radiostr.Storage.Tests</RootNamespace>
+    <AssemblyName>Radiostr.Storage.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,13 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -57,41 +54,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Queue\QueueMessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\StationServiceTests.cs" />
-    <Compile Include="Services\TestHelper.cs" />
-    <Compile Include="Services\TrackSearchServiceTests.cs" />
-    <Compile Include="Services\TrackServiceTests.cs" />
-    <Compile Include="Services\TrackImportServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Radiostr.Data\Radiostr.Data.csproj">
-      <Project>{b6b0545e-fce9-4b5b-a015-348cb974f25d}</Project>
-      <Name>Radiostr.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Radiostr.Model\Radiostr.Model.csproj">
-      <Project>{d3a94cda-fa92-43ae-a6a7-b7538141e05a}</Project>
-      <Name>Radiostr.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Radiostr\Radiostr.csproj">
-      <Project>{a05a96ff-98b9-4f28-aabe-66013820d37e}</Project>
-      <Name>Radiostr</Name>
+    <ProjectReference Include="..\Radiostr.Storage\Radiostr.Storage.csproj">
+      <Project>{e24ae0ad-d71c-423c-8363-940ba2eb4e24}</Project>
+      <Name>Radiostr.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Radiostr_Test.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Radiostr_Test_log.ldf">
-      <DependentUpon>Radiostr_Test.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

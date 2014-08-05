@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Radiostr.Data;
 using Radiostr.Helpers;
 using Radiostr.Repositories;
@@ -33,7 +34,7 @@ namespace Radiostr.Services
             return Repository.Get(id);
         }
 
-        public virtual IEnumerable<T> GetList(dynamic param)
+        public virtual Task<IEnumerable<T>> GetList(dynamic param)
         {
             SecurityHelper.Authenticate();
             throw new NotSupportedException();

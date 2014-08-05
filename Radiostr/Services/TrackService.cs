@@ -21,7 +21,7 @@ namespace Radiostr.Services
             _trackUriRepository = trackUriRepository;
         }
 
-        public int CreateTrack(int artistId, int albumId, string track, string uri, float duration)
+        public int CreateTrack(int artistId, int albumId, string track, string uri, int duration)
         {
             if (artistId == 0) throw new ArgumentNullException("artistId");
             if (string.IsNullOrEmpty(track)) throw new ArgumentNullException("track");
@@ -47,7 +47,7 @@ namespace Radiostr.Services
             return trackId;
         }
 
-        public int CreateTrack(int artistId, string track, string uri, float duration)
+        public int CreateTrack(int artistId, string track, string uri, int duration)
         {
             return CreateTrack(artistId, 0, track, uri, duration);
         }

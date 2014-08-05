@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Radiostr.Models
+namespace Radiostr.Model
 {
-    public class TrackImportModel
+    public class TracksImportModel
     {
         [Required]
         public int StationId { get; set; }
@@ -10,8 +10,8 @@ namespace Radiostr.Models
         [Required]
         public int LibraryId { get; set; }
 
-        public string Tags { get; set; }
+        public string[] Tags { get; set; }
 
-        public TrackModel[] Tracks { get; set; }
+        public TrackImportModel[] Tracks { get; set; }
     }
 }

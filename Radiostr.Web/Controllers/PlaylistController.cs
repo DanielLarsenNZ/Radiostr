@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Configuration;
-using System.Net.Http;
-using System.Runtime.Caching;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using Radiostr.Model;
-using Radiostr.SpotifyWebApi;
-using Radiostr.SpotifyWebApi.Cache;
-using Radiostr.SpotifyWebApi.Http;
 using Radiostr.Storage.Queue;
-using Radiostr.Web.Cache;
 using Radiostr.Web.Metrics;
 using Radiostr.Services;
-using Scale.Logger;
 
 namespace Radiostr.Web.Controllers
 {
@@ -40,11 +31,7 @@ namespace Radiostr.Web.Controllers
                 userId = userId.ToLower();
 
                 // TODO: Dependency Resolver
-                var spotifyService =
-                    new SpotifyService(new PlaylistsApi(new RestHttpClient(new HttpClient()),
-                        new ClientCredentialsAuthorizationApi(new RestHttpClient(new HttpClient()),
-                            ConfigurationManager.AppSettings, new RuntimeMemoryCache(MemoryCache.Default))));
-
+                var spotifyService = SpotifyService.GetService();
                 result.Data = await spotifyService.GetPlaylists(userId);
             }
 
@@ -58,7 +45,7 @@ namespace Radiostr.Web.Controllers
         {
             if (model.ServiceName != "spotify") throw new NotSupportedException(model.ServiceName + " service is not currently supported.");
 
-            var queue = new AzureQueueStorage(new LoggerRegistry());    //TODO: IoC
+            var queue = AzureQueueStorage.GetStorage();    //TODO: IoC
             await queue.AddMessage(new QueueMessage(PlaylistImportModel.QueueName, model));
 
             return Ok();

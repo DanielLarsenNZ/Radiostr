@@ -36,8 +36,9 @@
     <Reference Include="Common.Logging.Core">
       <HintPath>..\packages\Common.Logging.Core.2.2.0\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.27.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.27\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="DapperExtensions, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -58,6 +59,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,9 +81,6 @@
     <Compile Include="Helpers\MbidHelper.cs" />
     <Compile Include="Helpers\MockSecurityHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
-    <Compile Include="Models\ArtistModel.cs" />
-    <Compile Include="Models\TrackImportModel.cs" />
-    <Compile Include="Models\TrackModel.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITrackAlbumRepository.cs" />
     <Compile Include="Repositories\RadiostrRepository.cs" />
@@ -100,6 +99,7 @@
     <Compile Include="Services\LibraryTrackService.cs" />
     <Compile Include="Services\RadiostrService.cs" />
     <Compile Include="Services\SpotifyService.cs" />
+    <Compile Include="Services\StationService.cs" />
     <Compile Include="Services\TrackImportService.cs" />
     <Compile Include="Services\TrackSearchService.cs" />
     <Compile Include="Services\TrackService.cs" />
