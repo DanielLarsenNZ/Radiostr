@@ -12,6 +12,6 @@ namespace Radiostr.Model
 
         public string[] Tags { get; set; }
 
-        public TrackImportModel[] Tracks { get; set; }
+        public TrackModel[] Tracks { get; set; }
     }
 }

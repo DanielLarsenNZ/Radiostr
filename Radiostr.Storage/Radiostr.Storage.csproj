@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureStorage.cs" />
     <Compile Include="Queue\AzureQueueMessage.cs" />
     <Compile Include="Queue\Extensions\QueueMessageExtensions.cs" />
     <Compile Include="Queue\IQueueMessage.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Queue\AzureQueueStorage.cs" />
     <Compile Include="Queue\PlaylistImportQueueMessage.cs" />
     <Compile Include="Queue\QueueMessage.cs" />
+    <Compile Include="Table\AzureTableStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

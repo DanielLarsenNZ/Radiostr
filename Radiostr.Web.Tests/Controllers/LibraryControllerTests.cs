@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Radiostr.Entities;
+using Radiostr.Model.Entities;
 using Radiostr.Web.Controllers;
 
 namespace Radiostr.Web.Tests.Controllers

@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Radiostr.Entities;
 using Radiostr.Model;
+using Radiostr.Model.Entities;
 using Radiostr.Services;
 
 namespace Radiostr.Tests.Services
@@ -45,11 +45,11 @@ namespace Radiostr.Tests.Services
                 StationId = stationId,
                 Tracks = new[]
                 {
-                    new TrackImportModel
+                    new TrackModel
                     {
-                        Artist = new ArtistImportModel {Name = "Artist1"},
+                        Artist = new ArtistModel {Name = "Artist1"},
                         Title = "Title1",
-                        Album = new AlbumImportModel{Name = "Album 1"},
+                        Album = new AlbumModel{Name = "Album 1"},
                         Duration = 210000,
                         Tags = new []{"nights, reggae"},
                         Uri = "http://spotify.com/track/tr67uw783y"

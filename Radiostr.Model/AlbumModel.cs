@@ -2,7 +2,7 @@
 
 namespace Radiostr.Model
 {
-    public class AlbumImportModel
+    public class AlbumModel
     {
         [Required]
         [MaxLength(200)]

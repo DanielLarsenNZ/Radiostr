@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Radiostr.Entities;
+using Radiostr.Model.Entities;
 using Radiostr.Web.Controllers;
 
 namespace Radiostr.Web.Tests

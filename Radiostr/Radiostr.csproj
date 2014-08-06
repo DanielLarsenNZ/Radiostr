@@ -67,15 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Album.cs" />
-    <Compile Include="Entities\Artist.cs" />
-    <Compile Include="Entities\Library.cs" />
-    <Compile Include="Entities\LibraryTrack.cs" />
-    <Compile Include="Entities\Station.cs" />
-    <Compile Include="Entities\Track.cs" />
-    <Compile Include="Entities\TrackAlbum.cs" />
-    <Compile Include="Entities\TrackUri.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Helpers\IMbidHelper.cs" />
     <Compile Include="Helpers\ISecurityHelper.cs" />
     <Compile Include="Helpers\MbidHelper.cs" />
@@ -87,9 +78,9 @@
     <Compile Include="Repositories\TrackAlbumRepository.cs" />
     <Compile Include="Results\Result.cs" />
     <Compile Include="Results\TrackSearchResult.cs" />
-    <Compile Include="Selector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArtistService.cs" />
+    <Compile Include="Services\ISelector.cs" />
     <Compile Include="Services\ITrackImportService.cs" />
     <Compile Include="Services\ILibraryTrackService.cs" />
     <Compile Include="Services\IService.cs" />
@@ -98,6 +89,7 @@
     <Compile Include="Services\LibraryService.cs" />
     <Compile Include="Services\LibraryTrackService.cs" />
     <Compile Include="Services\RadiostrService.cs" />
+    <Compile Include="Services\SimpleScheduleSelector.cs" />
     <Compile Include="Services\SpotifyService.cs" />
     <Compile Include="Services\StationService.cs" />
     <Compile Include="Services\TrackImportService.cs" />

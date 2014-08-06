@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Radiostr.Entities;
+using Radiostr.Model.Entities;
 using Radiostr.Services;
 using Radiostr.Web.Metrics;
 

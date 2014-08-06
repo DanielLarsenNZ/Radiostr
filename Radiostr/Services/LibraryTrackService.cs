@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Radiostr.Entities;
 using Radiostr.Helpers;
+using Radiostr.Model.Entities;
 using Radiostr.Repositories;
 
 namespace Radiostr.Services

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Radiostr.Entities;
 using Radiostr.Helpers;
+using Radiostr.Model.Entities;
 using Radiostr.Repositories;
 using Radiostr.Services;
 

@@ -68,13 +68,13 @@ namespace Radiostr.Services
             var items = new List<dynamic>(response.items);
 
             // Map to TrackImportModels
-            var tracks = new List<TrackImportModel>();
+            var tracks = new List<TrackModel>();
             foreach (var item in items)
             {
-                tracks.Add(new TrackImportModel
+                tracks.Add(new TrackModel
                 {
-                    Album = new AlbumImportModel { Name = item.track.album.name, Uri = item.track.album.uri },
-                    Artist = new ArtistImportModel { Name = item.track.artists[0].name, Uri = item.track.artists[0].uri },
+                    Album = new AlbumModel { Name = item.track.album.name, Uri = item.track.album.uri },
+                    Artist = new ArtistModel { Name = item.track.artists[0].name, Uri = item.track.artists[0].uri },
                     Duration = item.track.duration_ms,
                     Uri = item.track.uri,
                     Title = item.track.name

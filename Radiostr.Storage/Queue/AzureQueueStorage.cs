@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 
 namespace Radiostr.Storage.Queue
@@ -12,25 +11,16 @@ namespace Radiostr.Storage.Queue
     /// <summary>
     /// A Queue Storage service based on Azure Queue Storage.
     /// </summary>
-    public class AzureQueueStorage : IQueueStorage
+    public class AzureQueueStorage : AzureStorage, IQueueStorage
     {
         private readonly CloudQueueClient _queueClient;
-        private readonly NameValueCollection _settings;
 
         /// <summary>
         /// Instantiates a new <see cref="AzureQueueStorage"/> service.
         /// </summary>
-        public AzureQueueStorage(NameValueCollection settings)
+        internal AzureQueueStorage(NameValueCollection settings) : base(settings)
         {
-            if (settings == null) throw new ArgumentNullException("settings");
-
-            _settings = settings;
-
-            string connectionString = _settings["StorageConnectionString"];
-            if (string.IsNullOrEmpty(connectionString)) throw new InvalidOperationException("StorageConnectionString was not found in settings.");
-
-            var storageAccount = CloudStorageAccount.Parse(connectionString);
-            _queueClient = storageAccount.CreateCloudQueueClient();
+            _queueClient = StorageAccount.CreateCloudQueueClient();
         }
 
         public async Task CreateQueues(string[] queueNames)
@@ -83,7 +73,7 @@ namespace Radiostr.Storage.Queue
 
         private TimeSpan GetVisibilityTime()
         {
-            string visibilitySettingValue = _settings["AzureQueueStorageGetMessageVisibilityTime"];
+            string visibilitySettingValue = Settings["AzureQueueStorageGetMessageVisibilityTime"];
             int visibilitySeconds;
             int.TryParse(visibilitySettingValue, out visibilitySeconds);
 

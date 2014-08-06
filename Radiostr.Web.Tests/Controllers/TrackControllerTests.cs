@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Radiostr.Entities;
 using Radiostr.Model;
+using Radiostr.Model.Entities;
 using Radiostr.Web.Controllers;
 using Radiostr.Web.Metrics;
 
@@ -45,26 +45,26 @@ namespace Radiostr.Web.Tests.Controllers
                 LibraryId = libraryId,
                 Tracks = new[]
                 {
-                    new TrackImportModel
+                    new TrackModel
                     {
-                        Artist = new ArtistImportModel {Name = "New Artist " + uid},
-                        Album = new AlbumImportModel{Name = "New Album " + uid},
+                        Artist = new ArtistModel {Name = "New Artist " + uid},
+                        Album = new AlbumModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
                         Duration = 330000,
                         Uri = "http://new.station.com/" + uid
                     },
-                    new TrackImportModel
+                    new TrackModel
                     {
-                        Artist = new ArtistImportModel {Name = "New Artist " + uid},
-                        Album = new AlbumImportModel{Name = "New Album " + uid},
+                        Artist = new ArtistModel {Name = "New Artist " + uid},
+                        Album = new AlbumModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
                         Duration = 330000,
                         Uri = "http://new.station.com/" + uid
                     },
-                    new TrackImportModel
+                    new TrackModel
                     {
-                        Artist = new ArtistImportModel {Name = "New Artist " + uid},
-                        Album = new AlbumImportModel{Name = "New Album " + uid},
+                        Artist = new ArtistModel {Name = "New Artist " + uid},
+                        Album = new AlbumModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
                         Duration = 330000,
                         Uri = "http://new.station.com/2/" + uid

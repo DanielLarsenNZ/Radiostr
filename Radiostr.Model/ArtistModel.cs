@@ -5,7 +5,7 @@ namespace Radiostr.Model
     /// <summary>
     /// A model for importing an Artist
     /// </summary>
-    public class ArtistImportModel
+    public class ArtistModel
     {
         [Required]
         [MaxLength(200)]

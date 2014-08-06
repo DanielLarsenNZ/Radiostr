@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Radiostr.Entities
+namespace Radiostr.Model.Entities
 {
     public class User
     {

@@ -1,4 +1,4 @@
-﻿using Radiostr.Entities;
+﻿using Radiostr.Model.Entities;
 
 namespace Radiostr.Services
 {

@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Radiostr.Model;
 using Radiostr.Data;
-using Radiostr.Entities;
 using Radiostr.Helpers;
+using Radiostr.Model.Entities;
 using Radiostr.Repositories;
 using Radiostr.Results;
 
@@ -44,7 +44,7 @@ namespace Radiostr.Services
 
             //var results = new List<string>();
 
-            foreach (TrackImportModel track in model.Tracks)
+            foreach (TrackModel track in model.Tracks)
             {
                 Trace.TraceInformation("Importing track {0} into Library {1} for Station {2}",
                     new object[] {track, model.StationId, model.LibraryId});
@@ -80,7 +80,7 @@ namespace Radiostr.Services
             }
         }
 
-        protected internal int CreateTrack(TrackSearchResult result, TrackImportModel track)
+        protected internal int CreateTrack(TrackSearchResult result, TrackModel track)
         {
             int artistId = result.ArtistId == 0
                 ? _artistService.Create(new Artist {Name = track.Artist.Name})
@@ -107,7 +107,7 @@ namespace Radiostr.Services
             return _trackService.CreateTrack(artistId, result.AlbumId, track.Title, track.Uri, track.Duration);
         }
 
-        protected internal async Task<TrackSearchResult> FindTrack(TrackImportModel track)
+        protected internal async Task<TrackSearchResult> FindTrack(TrackModel track)
         {
             // find track by URI
             int trackId = await _trackSearchService.FindTrackByUri(track.Uri);

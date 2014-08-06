@@ -2,8 +2,8 @@
 using System.IO;
 using Moq;
 using Radiostr.Data;
-using Radiostr.Entities;
 using Radiostr.Helpers;
+using Radiostr.Model.Entities;
 using Radiostr.Repositories;
 using Radiostr.Services;
 

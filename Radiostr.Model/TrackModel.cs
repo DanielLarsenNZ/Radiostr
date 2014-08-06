@@ -2,7 +2,7 @@
 
 namespace Radiostr.Model
 {
-    public class TrackImportModel
+    public class TrackModel
     {
         [Required]
         [MaxLength(400)]
@@ -12,14 +12,14 @@ namespace Radiostr.Model
         /// The Main Artist.
         /// </summary>
         [Required]
-        public ArtistImportModel Artist { get; set; }
+        public ArtistModel Artist { get; set; }
 
         /// <summary>
         /// All Artists listed on the Track.
         /// </summary>
-        public ArtistImportModel[] Artists { get; set; }
+        public ArtistModel[] Artists { get; set; }
         
-        public AlbumImportModel Album { get; set; }
+        public AlbumModel Album { get; set; }
 
         /// <summary>
         /// Track duration in milliseconds
@@ -35,7 +35,7 @@ namespace Radiostr.Model
 
         public override string ToString()
         {
-            return string.Format("(TrackImportModel Title = {0}, Artist = {1}, Album = {2}, Duration = {3}, Uri = {4}, Tags = {5})",
+            return string.Format("(TrackModel Title = {0}, Artist = {1}, Album = {2}, Duration = {3}, Uri = {4}, Tags = {5})",
                 Title, Artist, Album, Duration, Uri, Tags);
         }
     }
