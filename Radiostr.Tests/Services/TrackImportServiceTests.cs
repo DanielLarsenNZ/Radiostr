@@ -52,7 +52,7 @@ namespace Radiostr.Tests.Services
                         Album = new AlbumModel{Name = "Album 1"},
                         Duration = 210000,
                         Tags = new []{"nights, reggae"},
-                        Uri = "http://spotify.com/track/tr67uw783y"
+                        Uri = new []{"http://spotify.com/track/tr67uw783y"}
                     }
                 }
             };

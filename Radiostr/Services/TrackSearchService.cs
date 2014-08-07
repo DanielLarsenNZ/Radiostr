@@ -129,20 +129,26 @@ namespace Radiostr.Services
         /// Finds Track by URI
         /// </summary>
         /// <returns>TrackId or 0 if not found</returns>
-        public async Task<int> FindTrackByUri(string uri)
+        public async Task<int> FindTrackByUri(string[] uri)
         {
-            if (string.IsNullOrEmpty(uri)) throw new ArgumentNullException("uri");
-
             _securityHelper.Authenticate();
 
-            var result = await _repository.Query("select TrackId from TrackUri where Uri = @uri", new {uri});
+            if (uri == null) return 0;
+
+            var result = await _repository.Query<int>("select TrackId from TrackUri where Uri in (@uri)", new {uri});
             var items = result.ToList();
 
             if (!items.Any()) return 0;
 
-            if (items.Count > 1) throw new InvalidOperationException("TrackUri records should be unique.");
+            int trackId = items[0];
+            if (items.Count > 1 && items.Any(i => i != trackId)) {
+                //TODO: This method could be refactored/overloaded to return more than one Track.
+                throw new InvalidOperationException(
+                    string.Format("More than one Track was found with the URIs given. URIs = {1}, TrackIds = {0}",
+                        string.Join(",", uri), string.Join(",", items)));
+            }
 
-            return items[0].TrackId;
+            return trackId;
         }
 
         public static TrackSearchService CreateService()

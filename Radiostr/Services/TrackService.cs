@@ -21,12 +21,12 @@ namespace Radiostr.Services
             _trackUriRepository = trackUriRepository;
         }
 
-        public int CreateTrack(int artistId, int albumId, string track, string uri, int duration)
+        public int CreateTrack(int artistId, int albumId, string track, string[] uri, int duration)
         {
             if (artistId == 0) throw new ArgumentNullException("artistId");
             if (string.IsNullOrEmpty(track)) throw new ArgumentNullException("track");
-            if (string.IsNullOrEmpty(uri)) throw new ArgumentNullException("uri");
-            if (duration <= 0) throw new ArgumentOutOfRangeException("duration", "duration must be greater than zero.");
+            if (uri == null || uri.Length == 0) throw new ArgumentNullException("uri");
+            if (duration < 1000) throw new ArgumentOutOfRangeException("duration", "duration must be greater than 1000ms.");
 
             _securityHelper.Authenticate();
 
@@ -39,15 +39,18 @@ namespace Radiostr.Services
             });
 
             // Track URI
-            _trackUriRepository.Create(new TrackUri { TrackId = trackId, Uri = uri });
-
+            foreach (var item in uri)
+            {
+                _trackUriRepository.Create(new TrackUri { TrackId = trackId, Uri = item });    
+            }
+            
             // TrackAlbum
             if (albumId != 0) _trackAlbumRepository.Create(trackId, albumId);
 
             return trackId;
         }
 
-        public int CreateTrack(int artistId, string track, string uri, int duration)
+        public int CreateTrack(int artistId, string track, string[] uri, int duration)
         {
             return CreateTrack(artistId, 0, track, uri, duration);
         }

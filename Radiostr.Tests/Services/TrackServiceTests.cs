@@ -25,7 +25,7 @@ namespace Radiostr.Tests.Services
 
             // Act
             int trackId = service.CreateTrack(artistId, "Morning " + uid,
-                "https://play.spotify.com/track/3arVrdpOPMgLZOztBr2jM6" + uid, 320);
+                new []{"https://play.spotify.com/track/3arVrdpOPMgLZOztBr2jM6" + uid}, 320000);
 
             Trace.WriteLine("trackId = " + trackId);
         }
@@ -47,7 +47,7 @@ namespace Radiostr.Tests.Services
                 mockTrackAlbumRepository.Object, mockTrackUriRepository.Object);
 
             // Act
-            service.CreateTrack(artistId, albumId, "Morning " + uid, "https://play.spotify.com/track/3arVrdpOPMgLZOztBr2jM6" + uid, 320);
+            service.CreateTrack(artistId, albumId, "Morning " + uid, new []{"https://play.spotify.com/track/3arVrdpOPMgLZOztBr2jM6" + uid}, 320000);
 
             // Assert
             mockTrackAlbumRepository.Verify(r => r.Create(It.IsAny<int>(), albumId));

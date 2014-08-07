@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Model;
 using Radiostr.Model.Entities;
 using Radiostr.Web.Controllers;
-using Radiostr.Web.Metrics;
 
 namespace Radiostr.Web.Tests.Controllers
 {
@@ -51,7 +49,7 @@ namespace Radiostr.Web.Tests.Controllers
                         Album = new AlbumModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
                         Duration = 330000,
-                        Uri = "http://new.station.com/" + uid
+                        Uri = new []{ "http://new.station.com/" + uid}
                     },
                     new TrackModel
                     {
@@ -59,7 +57,7 @@ namespace Radiostr.Web.Tests.Controllers
                         Album = new AlbumModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
                         Duration = 330000,
-                        Uri = "http://new.station.com/" + uid
+                        Uri = new []{ "http://new.station.com/" + uid}
                     },
                     new TrackModel
                     {
@@ -67,7 +65,7 @@ namespace Radiostr.Web.Tests.Controllers
                         Album = new AlbumModel{Name = "New Album " + uid},
                         Title = "New Title " + uid,
                         Duration = 330000,
-                        Uri = "http://new.station.com/2/" + uid
+                        Uri = new []{ "http://new.station.com/2/" + uid}
                     }
                 }
             };

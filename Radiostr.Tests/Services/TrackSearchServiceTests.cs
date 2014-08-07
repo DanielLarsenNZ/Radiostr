@@ -16,7 +16,7 @@ namespace Radiostr.Tests.Services
             var service = TrackSearchService.CreateService();
 
             // Act
-            int trackId = await service.FindTrackByUri("http://spotify.com/track/abc123");
+            int trackId = await service.FindTrackByUri(new []{ "http://spotify.com/track/abc123"});
             Trace.WriteLine("trackId = " + trackId);
             
             var result = service.FindTrack("New artist", "New title", "New album");

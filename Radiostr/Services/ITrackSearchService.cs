@@ -15,6 +15,6 @@ namespace Radiostr.Services
         /// Finds Track by URI
         /// </summary>
         /// <returns>TrackId or 0 if not found</returns>
-        Task<int> FindTrackByUri(string uri);
+        Task<int> FindTrackByUri(string[] uri);
     }
 }
