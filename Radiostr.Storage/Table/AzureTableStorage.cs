@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-
+using Radiostr.Model;
 
 namespace Radiostr.Storage.Table
 {
@@ -30,6 +26,35 @@ namespace Radiostr.Storage.Table
                 await table.CreateIfNotExistsAsync();
                 Trace.TraceInformation("Created table " + tableName);
             }
+        }
+
+        public async Task Insert(string tableName, RadiostrTableEntity entity)
+        {
+            var table = _tableClient.GetTableReference(tableName);
+            var insertOperation = TableOperation.Insert(entity);
+            var result = await table.ExecuteAsync(insertOperation);
+            Trace.TraceInformation("Inserted entity {0}, result = {1}", entity, result);
+            //TODO: Handle error here?
+        }
+
+        public async Task Insert(string tableName, RadiostrTableEntity[] entities)
+        {
+            var table = _tableClient.GetTableReference(tableName);
+            var insertOperation = new TableBatchOperation();
+            entities.ToList().ForEach(insertOperation.Insert);
+            var results = await table.ExecuteBatchAsync(insertOperation);
+            Trace.TraceInformation("Inserted entities {0}, results = {1}", string.Join(",", entities.ToString()),
+                string.Join(",", results.ToString()));
+            //TODO: Handle errors here?
+            //TODO: Return (abstracted) results?
+        }
+
+        public async Task<T> Retrieve<T>(string tableName, string partitionKey, string rowKey) where T:RadiostrTableEntity
+        {
+            var table = _tableClient.GetTableReference(tableName);
+            var operation = TableOperation.Retrieve<T>(partitionKey, rowKey);
+            var result = await table.ExecuteAsync(operation);
+            return result.Result as T;
         }
     }
 }
