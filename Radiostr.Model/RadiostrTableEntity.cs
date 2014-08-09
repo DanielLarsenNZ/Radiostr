@@ -6,7 +6,7 @@ namespace Radiostr.Model
 {
     public abstract class RadiostrTableEntity : TableEntity
     {
-        private readonly Lazy<string> _version = new Lazy<string>(() => Assembly.GetEntryAssembly().GetName().Version.ToString()); 
+        //private readonly Lazy<string> _version = new Lazy<string>(() => Assembly.GetEntryAssembly().GetName().Version.ToString()); 
 
         /// <summary>
         /// Initialises the infrastructure properties of a newly created entity.
@@ -21,7 +21,8 @@ namespace Radiostr.Model
 
             RowKey = Guid.NewGuid().ToString("N");
             PartitionKey = DerivePartitionKey();
-            Version = _version.Value;
+            //Version = _version.Value;
+            Version = "1.0.0";  //TODO: Not sure we even need this, and what version number it should be tied to.
         }
 
         /// <summary>
