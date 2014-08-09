@@ -99,10 +99,12 @@
     <Compile Include="Results\TrackSearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ArtistService.cs" />
+    <Compile Include="Services\IArtistService.cs" />
     <Compile Include="Services\ISelector.cs" />
     <Compile Include="Services\ITrackImportService.cs" />
     <Compile Include="Services\ILibraryTrackService.cs" />
     <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\ITrackModelService.cs" />
     <Compile Include="Services\ITrackSearchService.cs" />
     <Compile Include="Services\ITrackService.cs" />
     <Compile Include="Services\LibraryService.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Services\StationService.cs" />
     <Compile Include="Services\TrackImportService.cs" />
     <Compile Include="Services\TrackSearchService.cs" />
+    <Compile Include="Services\TrackModelService.cs" />
     <Compile Include="Services\TrackService.cs" />
   </ItemGroup>
   <ItemGroup>

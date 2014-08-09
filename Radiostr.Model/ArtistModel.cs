@@ -7,15 +7,18 @@ namespace Radiostr.Model
     /// </summary>
     public class ArtistModel
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }
 
-        public string Uri { get; set; }
+        public string[] Uri { get; set; }
 
         public override string ToString()
         {
-            return string.Format("(ArtistModel Name = {0}, Uri = {1}", Name, Uri);
+            return string.Format("(ArtistModel Name = {0}, Uri = {1}", Name, string.Join(",", Uri));
         }
     }
 }

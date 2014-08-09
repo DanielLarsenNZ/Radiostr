@@ -88,6 +88,7 @@
     <Compile Include="Services\TrackSearchServiceTests.cs" />
     <Compile Include="Services\TrackServiceTests.cs" />
     <Compile Include="Services\TrackImportServiceTests.cs" />
+    <Compile Include="Services\SimpleScheduleSelectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Radiostr.Data\Radiostr.Data.csproj">
