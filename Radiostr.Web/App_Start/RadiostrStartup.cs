@@ -1,5 +1,4 @@
-﻿using Radiostr.Model;
-using Radiostr.Storage.Queue;
+﻿using Radiostr.Storage.Queue;
 
 namespace Radiostr.Web
 {
@@ -9,7 +8,7 @@ namespace Radiostr.Web
         {
             // init queues
             var queue = AzureQueueStorage.GetStorage();
-            queue.CreateQueues(new[] {PlaylistImportModel.QueueName}).Wait();
+            queue.CreateQueues(new[] { QueueNames.ImportPlaylist, QueueNames.SelectSchedule }).Wait();
         }
     }
 }

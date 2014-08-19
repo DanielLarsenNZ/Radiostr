@@ -28,7 +28,7 @@ namespace Radiostr.Services
             _scheduleService = scheduleService;
         }
 
-        public async Task<Schedule> Select(int stationId, int[] libraryIds, int trackCount)
+        public async Task<Schedule> Select(string stationId, int[] libraryIds, int trackCount)
         {
             if (trackCount < 1 || trackCount > 40) throw new ArgumentOutOfRangeException("trackCount", "Must be between 1 and 40");
             _securityHelper.Authenticate();
@@ -36,7 +36,7 @@ namespace Radiostr.Services
             // Check libraries are valid for stationId.
             const string stationSql = "select stationId from library where id in @libraryIds";
             var stationIds = (await _repository.Query<int>(stationSql, new { libraryIds })).ToList();
-            if (stationIds.Count != libraryIds.Length || stationIds.Any(s => s != stationId))
+            if (stationIds.Count != libraryIds.Length || stationIds.Any(s => s.ToString() != stationId))
             {
                 throw new InvalidOperationException(string.Format(
                     "Not all libraryIds ({0}) are valid for StationId {1}", string.Join(",", libraryIds), stationId));
@@ -54,12 +54,12 @@ namespace Radiostr.Services
             return schedule;
         }
 
-        public Task<Schedule> Select(int stationId, int[] libraryIds, TimeSpan duration)
+        public Task<Schedule> Select(string stationId, int[] libraryIds, TimeSpan duration)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Schedule> Select(int stationId, int[] libraryIds, DateTime startTime, DateTimePrecision precision, TimeSpan duration)
+        public Task<Schedule> Select(string stationId, int[] libraryIds, DateTime startTime, DateTimePrecision precision, TimeSpan duration)
         {
             throw new NotImplementedException();
         }

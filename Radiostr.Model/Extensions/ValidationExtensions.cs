@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Radiostr.Model.Extensions
 {
@@ -15,6 +16,7 @@ namespace Radiostr.Model.Extensions
         /// implementing <see cref="IValidatableObject "/></param>
         public static void Validate(this object instance)
         {
+            if (instance == null) throw new ArgumentNullException("instance");
             Validator.ValidateObject(instance, new ValidationContext(instance));
         }
     }

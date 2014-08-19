@@ -19,7 +19,7 @@ namespace Radiostr.Tests.Services
             var selector = SimpleScheduleSelector.GetService();
 
             // Act
-            var schedule = await selector.Select(result.Item1, new[] {result.Item2}, 10);
+            var schedule = await selector.Select(result.Item1.ToString(), new[] {result.Item2}, 10);
 
             // Assert
             Debug.WriteLine(schedule.ToString());

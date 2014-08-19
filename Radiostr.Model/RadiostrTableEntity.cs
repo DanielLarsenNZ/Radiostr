@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Reflection;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace Radiostr.Model
 {
+    [Obsolete]
     public abstract class RadiostrTableEntity : TableEntity
     {
         //private readonly Lazy<string> _version = new Lazy<string>(() => Assembly.GetEntryAssembly().GetName().Version.ToString()); 

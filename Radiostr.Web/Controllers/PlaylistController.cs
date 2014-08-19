@@ -46,7 +46,7 @@ namespace Radiostr.Web.Controllers
             if (model.ServiceName != "spotify") throw new NotSupportedException(model.ServiceName + " service is not currently supported.");
 
             var queue = AzureQueueStorage.GetStorage();    //TODO: IoC
-            await queue.AddMessage(new QueueMessage(PlaylistImportModel.QueueName, model));
+            await queue.AddMessage(new QueueMessage(QueueNames.ImportPlaylist, model));
 
             return Ok();
         }

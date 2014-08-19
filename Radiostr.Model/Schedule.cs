@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Radiostr.Model.Extensions;
 
 namespace Radiostr.Model
 {
@@ -10,7 +9,10 @@ namespace Radiostr.Model
     public class Schedule
     {
         [Required]
-        public int StationId { get; set; }
+        public Guid Id { get; set; }
+
+        [Required]
+        public string StationId { get; set; }
 
         /// <summary>
         /// Optional sequence hash used for ordering schedules in a list.

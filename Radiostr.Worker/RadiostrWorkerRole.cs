@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Radiostr.Model;
+using Radiostr.Model.Extensions;
 using Radiostr.Services;
 using Radiostr.Storage.Queue;
 using System.Reactive;
 using System.Reactive.Linq;
 using Radiostr.Storage.Queue.Extensions;
+using Radiostr.Storage.Queue.Models;
+using Radiostr.Storage.Table;
+using Radiostr.Storage.Table.Entities;
 
 namespace Radiostr.Worker
 {
@@ -24,7 +28,10 @@ namespace Radiostr.Worker
         {
             Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Run()");
 
-            _queue.CreateQueues(new[] { PlaylistImportModel.QueueName }).Wait();
+            Task.WaitAll(
+                _queue.CreateQueues(new[] {QueueNames.ImportPlaylist, QueueNames.SelectSchedule}),
+                GetTableStorage().CreateTables(new[] {TableNames.Schedule})
+                );
 
             var observable =
                 from heartbeat in Observable.Return(0L).Concat(Observable.Interval(TimeSpan.FromSeconds(60)))
@@ -38,37 +45,82 @@ namespace Radiostr.Worker
             try
             {
                 Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute()");
-                var message = await _queue.GetMessage(PlaylistImportModel.QueueName);
-
-                if (message == null) return;
-
-                var settings = new NameValueCollection
-                {
-                    {"StorageConnectionString", CloudConfigurationManager.GetSetting("StorageConnectionString")},
-                    {"SpotifyApiClientId", CloudConfigurationManager.GetSetting("SpotifyApiClientId")},
-                    {"SpotifyApiClientSecret", CloudConfigurationManager.GetSetting("SpotifyApiClientSecret")},
-                };
-
-                var service = SpotifyService.GetService(settings);
-                
-                try
-                {
-                    await service.ImportPlaylist(message.GetModel<PlaylistImportModel>());
-                }
-                catch (Exception ex)
-                {
-                    message.SetFailMessage(ex.Message);
-                    _queue.UpdateMessage(message).Wait();
-                    throw;
-                }
-
-                await _queue.DeleteMessage(message);
+                await Task.WhenAll(ImportPlaylist(), GeneratePlaylist());
             }
             catch (Exception ex)
             {
                 Trace.TraceError("{0}\r\n{1}", ex.Message, ex.StackTrace);
                 throw;
             }
+        }
+
+        private async Task ImportPlaylist()
+        {
+            var message = await _queue.GetMessage(QueueNames.ImportPlaylist);
+            if (message == null) return;
+
+            var settings = new NameValueCollection
+                {
+                    {"StorageConnectionString", CloudConfigurationManager.GetSetting("StorageConnectionString")},
+                    {"SpotifyApiClientId", CloudConfigurationManager.GetSetting("SpotifyApiClientId")},
+                    {"SpotifyApiClientSecret", CloudConfigurationManager.GetSetting("SpotifyApiClientSecret")},
+                };
+
+            var service = SpotifyService.GetService(settings);
+
+            try
+            {
+                await service.ImportPlaylist(message.GetModel<PlaylistImportModel>());
+            }
+            catch (Exception ex)
+            {
+                message.SetFailMessage(ex.Message);
+                _queue.UpdateMessage(message).Wait();
+                throw;
+            }
+
+            await _queue.DeleteMessage(message);
+        }
+
+        private AzureTableStorage GetTableStorage()
+        {
+            var settings = new NameValueCollection
+            {
+                {"StorageConnectionString", CloudConfigurationManager.GetSetting("StorageConnectionString")},
+            };
+
+            return AzureTableStorage.GetTableStorage(settings);
+        }
+
+        private async Task GeneratePlaylist()
+        {
+            // Get message
+            var message = await _queue.GetMessage(QueueNames.ImportPlaylist);
+            if (message == null) return;
+
+            var service = SimpleScheduleSelector.GetService();
+
+            try
+            {
+                var model = message.GetModel<SelectScheduleModel>();
+                model.Validate();
+
+                // Select a schedule
+                var schedule = await service.Select(model.StationId, model.LibraryIds, model.TrackCount);
+
+                // Save to storage
+                var storage = GetTableStorage();
+                var entity = new ScheduleTableEntity(schedule);
+                await storage.Insert(TableNames.Schedule, entity);
+            }
+            catch (Exception ex)
+            {
+                message.SetFailMessage(ex.Message);
+                _queue.UpdateMessage(message).Wait();
+                throw;
+            }
+
+            await _queue.DeleteMessage(message);
         }
 
         public override bool OnStart()

@@ -26,7 +26,7 @@ namespace Radiostr.Tests.Services
             // Act
             try
             {
-                service.CreateSchedule(1, new[] { track });
+                service.CreateSchedule("1", new[] { track });
             }
             catch (Exception exception)
             {

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
-using Radiostr.Model;
 
 namespace Radiostr.Storage.Table
 {
@@ -28,7 +27,7 @@ namespace Radiostr.Storage.Table
             }
         }
 
-        public async Task Insert(string tableName, RadiostrTableEntity entity)
+        public async Task Insert(string tableName, TableEntity entity)
         {
             var table = _tableClient.GetTableReference(tableName);
             var insertOperation = TableOperation.Insert(entity);
@@ -37,7 +36,7 @@ namespace Radiostr.Storage.Table
             //TODO: Handle error here?
         }
 
-        public async Task Insert(string tableName, RadiostrTableEntity[] entities)
+        public async Task Insert(string tableName, TableEntity[] entities)
         {
             var table = _tableClient.GetTableReference(tableName);
             var insertOperation = new TableBatchOperation();
@@ -49,12 +48,17 @@ namespace Radiostr.Storage.Table
             //TODO: Return (abstracted) results?
         }
 
-        public async Task<T> Retrieve<T>(string tableName, string partitionKey, string rowKey) where T:RadiostrTableEntity
+        public async Task<T> Retrieve<T>(string tableName, string partitionKey, string rowKey) where T : TableEntity
         {
             var table = _tableClient.GetTableReference(tableName);
             var operation = TableOperation.Retrieve<T>(partitionKey, rowKey);
             var result = await table.ExecuteAsync(operation);
             return result.Result as T;
+        }
+
+        public static AzureTableStorage GetTableStorage(NameValueCollection settings)
+        {
+            return new AzureTableStorage(settings);
         }
     }
 }

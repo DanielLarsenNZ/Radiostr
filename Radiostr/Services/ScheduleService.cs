@@ -7,20 +7,20 @@ namespace Radiostr.Services
 {
     public interface IScheduleService
     {
-        Schedule CreateSchedule(int stationId, TrackModel[] tracks);
+        Schedule CreateSchedule(string stationId, TrackModel[] tracks);
     }
 
     public class ScheduleService : IScheduleService
     {
-        public Schedule CreateSchedule(int stationId, TrackModel[] tracks)
+        public Schedule CreateSchedule(string stationId, TrackModel[] tracks)
         {
-            if (stationId == 0) throw new ArgumentException("stationId cannot be 0");
+            if (string.IsNullOrEmpty(stationId)) throw new ArgumentNullException("stationId");
             if (tracks == null) throw new ArgumentNullException("tracks");
 
             var schedule = new Schedule
             {
-                StationId = stationId,
-                
+                Id = Guid.NewGuid(),
+                StationId = stationId
             };
 
             var events = new List<ScheduleEvent>();

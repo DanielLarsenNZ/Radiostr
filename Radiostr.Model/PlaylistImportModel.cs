@@ -7,8 +7,6 @@ namespace Radiostr.Model
     /// </summary>
     public class PlaylistImportModel
     {
-        public const string QueueName = "playlist-import";
-
         /// <summary>
         /// The Radiostr UserId
         /// </summary>
