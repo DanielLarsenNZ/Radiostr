@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Radiostr.Data;
 using Radiostr.Helpers;
 using Radiostr.Model;
-using Radiostr.Model.Extensions;
 using Radiostr.Repositories;
 
 namespace Radiostr.Services
@@ -15,8 +13,10 @@ namespace Radiostr.Services
         private readonly ISecurityHelper _securityHelper;
         private readonly IRepository _repository;
         private readonly ITrackModelService _trackService;
+        private readonly IScheduleService _scheduleService;
 
-        internal SimpleScheduleSelector(ISecurityHelper securityHelper, IRepository repository, ITrackModelService trackService)
+        internal SimpleScheduleSelector(ISecurityHelper securityHelper, IRepository repository, ITrackModelService trackService,
+            IScheduleService scheduleService)
         {
             if (securityHelper == null) throw new ArgumentNullException("securityHelper");
             if (repository == null) throw new ArgumentNullException("repository");
@@ -25,6 +25,7 @@ namespace Radiostr.Services
             _securityHelper = securityHelper;
             _repository = repository;
             _trackService = trackService;
+            _scheduleService = scheduleService;
         }
 
         public async Task<Schedule> Select(int stationId, int[] libraryIds, int trackCount)
@@ -47,21 +48,8 @@ namespace Radiostr.Services
                                     where libraryId in @libraryIds";
 
             var trackIds = await _repository.Query<int>(sql, new {trackCount, libraryIds, stationId});
-
             var tracks = await _trackService.GetTracks(trackIds.ToArray());
-
-            var schedule = new Schedule
-            {
-                StationId = stationId,
-            };
-
-            schedule.Events = new ScheduleEvent[tracks.Length];
-            for (int i=0; i<tracks.Length;i++)
-            {
-                schedule.Events[i] = new ScheduleEvent(schedule, tracks[i]);
-            }
-
-            schedule.Duration = schedule.CalculateDuration();
+            var schedule = _scheduleService.CreateSchedule(stationId, tracks);
 
             return schedule;
         }
@@ -79,7 +67,8 @@ namespace Radiostr.Services
         public static SimpleScheduleSelector GetService()
         {
             return new SimpleScheduleSelector(new MockSecurityHelper(),
-                new RadiostrRepository(new RadiostrDbConnection()), TrackModelService.CreateTrackService());
+                new RadiostrRepository(new RadiostrDbConnection()), TrackModelService.CreateTrackService(),
+                ScheduleService.GetService());
         }
     }
 }

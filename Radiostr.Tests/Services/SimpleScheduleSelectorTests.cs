@@ -23,6 +23,7 @@ namespace Radiostr.Tests.Services
 
             // Assert
             Debug.WriteLine(schedule.ToString());
+            Assert.AreEqual(10,schedule.Events.Length);
         }
     }
 }

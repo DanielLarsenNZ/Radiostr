@@ -56,27 +56,6 @@ namespace Radiostr.Model
     public class ScheduleEvent
     {
         /// <summary>
-        /// Creates a new schedule event for a schedule from a track.
-        /// </summary>
-        /// <param name="schedule">The schedule that this event is part of.</param>
-        /// <param name="track">The track for this event.</param>
-        public ScheduleEvent(Schedule schedule, TrackModel track)
-        {
-            if (schedule == null) throw new ArgumentNullException("schedule");
-            if (track == null) throw new ArgumentNullException("track");
-
-            track.Validate();
-
-            Track = track;
-            SequenceNumber = schedule.GetNextEventSequenceNumber();
-            Id = Guid.NewGuid();
-            StartTime = schedule.GetNextEventStartTime();
-            Duration = this.CalculateDuration();
-            Name = string.Format("{0} / {1}", track.Artist.Name, track.Title);
-            StartsOn = StartsOn.EndCue;
-        }
-
-        /// <summary>
         /// Sequence hash used for ordering schedule events in this schedule.
         /// </summary>
         [Required]

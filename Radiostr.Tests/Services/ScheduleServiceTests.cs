@@ -2,18 +2,18 @@
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Model;
+using Radiostr.Services;
 
-namespace Radiostr.Tests.Model
+namespace Radiostr.Tests.Services
 {
     [TestClass]
-    public class ScheduleEventTests
+    public class ScheduleServiceTests
     {
         [TestMethod]
         [ExpectedException(typeof(System.ComponentModel.DataAnnotations.ValidationException))]
-        public void Ctor_TrackHasNullArtist_ThrowsValidationException()
+        public void CreateSchedule_TrackHasNullArtist_ThrowsValidationException()
         {
             // Arrange
-            var schedule = new Schedule();
             var track = new TrackModel
             {
                 Album = new AlbumModel {Name = "album name", Uri = "http://foo.bar"},
@@ -21,11 +21,18 @@ namespace Radiostr.Tests.Model
                 Title = "Track Title",
                 Uri = new[] {"http://foo.bar"}
             };
+            var service = new ScheduleService();
 
             // Act
-            var @event = new ScheduleEvent(schedule, track);
-
-            Debug.WriteLine(@event);
+            try
+            {
+                service.CreateSchedule(1, new[] { track });
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+                throw;
+            }
         }
     }
 }

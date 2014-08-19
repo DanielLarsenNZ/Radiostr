@@ -110,6 +110,7 @@
     <Compile Include="Services\LibraryService.cs" />
     <Compile Include="Services\LibraryTrackService.cs" />
     <Compile Include="Services\RadiostrService.cs" />
+    <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="Services\SimpleScheduleSelector.cs" />
     <Compile Include="Services\SpotifyService.cs" />
     <Compile Include="Services\StationService.cs" />
