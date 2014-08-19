@@ -37,5 +37,10 @@ namespace Radiostr.Tests.Services
         {
             return _uid;
         }
+
+        public static string NewUid()
+        {
+            return new TestHelper().GetUid();
+        }
     }
 }

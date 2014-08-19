@@ -29,7 +29,7 @@ namespace Radiostr.Services
             _securityHelper.Authenticate();
 
             // tracks
-            const string sql = "select * from track where id in (@trackIds)";
+            const string sql = "select * from track where id in @trackIds";
             var tracks = (await _repository.Query<Track>(sql, new {trackIds})).ToList();
 
             // artists

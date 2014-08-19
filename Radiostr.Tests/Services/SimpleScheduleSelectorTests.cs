@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Radiostr.Services;
+using Radiostr.Tests.Scenarios;
 
 namespace Radiostr.Tests.Services
 {
@@ -13,10 +14,12 @@ namespace Radiostr.Tests.Services
         public async Task BigSelectTest()
         {
             // Arrange
+            var result = await new TrackImportScenarios().NewLibraryAndStationAndTracksImported(20);
+
             var selector = SimpleScheduleSelector.GetService();
 
             // Act
-            var schedule = await selector.Select(40066, new[] {26045}, 10);     //TODO: Create Library and Station for test.
+            var schedule = await selector.Select(result.Item1, new[] {result.Item2}, 10);
 
             // Assert
             Debug.WriteLine(schedule.ToString());

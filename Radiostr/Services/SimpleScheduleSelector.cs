@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Radiostr.Data;
 using Radiostr.Helpers;
 using Radiostr.Model;
+using Radiostr.Model.Extensions;
 using Radiostr.Repositories;
 
 namespace Radiostr.Services
@@ -31,7 +33,7 @@ namespace Radiostr.Services
             _securityHelper.Authenticate();
 
             // Check libraries are valid for stationId.
-            const string stationSql = "select stationId from library where id in (@libraryIds)";
+            const string stationSql = "select stationId from library where id in @libraryIds";
             var stationIds = (await _repository.Query<int>(stationSql, new { libraryIds })).ToList();
             if (stationIds.Count != libraryIds.Length || stationIds.Any(s => s != stationId))
             {
@@ -42,19 +44,26 @@ namespace Radiostr.Services
             // TODO: this will be a more complex selection algorithm
             const string sql = @"   select top(@trackCount) TrackId
                                     from LibraryTrack 
-                                    where libraryId in (@libraryIds)";
+                                    where libraryId in @libraryIds";
 
             var trackIds = await _repository.Query<int>(sql, new {trackCount, libraryIds, stationId});
 
             var tracks = await _trackService.GetTracks(trackIds.ToArray());
 
-            return new Schedule
+            var schedule = new Schedule
             {
-                Events = tracks.Select(t => new ScheduleEvent
-                {
-                    Track = t
-                }).ToArray()
+                StationId = stationId,
             };
+
+            schedule.Events = new ScheduleEvent[tracks.Length];
+            for (int i=0; i<tracks.Length;i++)
+            {
+                schedule.Events[i] = new ScheduleEvent(schedule, tracks[i]);
+            }
+
+            schedule.Duration = schedule.CalculateDuration();
+
+            return schedule;
         }
 
         public Task<Schedule> Select(int stationId, int[] libraryIds, TimeSpan duration)

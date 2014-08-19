@@ -17,10 +17,10 @@ namespace Radiostr.Services
 
         public async Task<ArtistModel[]> GetList(int[] artistIds)
         {
-            var artists = await Repository.Query<Artist>("select Name from Artist where id in (@artistIds)", artistIds);
+            var artists = await Repository.Query<Artist>("select * from Artist where id in @artistIds", new { artistIds });
             var uris =
                 await
-                    Repository.Query<ArtistUri>("select * from ArtistUrl where ArtistId in (@artistIds)",
+                    Repository.Query<ArtistUri>("select * from ArtistUri where ArtistId in @artistIds",
                         new {artistIds});
             return
                 artists.Select(

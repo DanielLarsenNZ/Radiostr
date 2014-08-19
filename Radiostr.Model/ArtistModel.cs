@@ -18,7 +18,7 @@ namespace Radiostr.Model
 
         public override string ToString()
         {
-            return string.Format("(ArtistModel Name = {0}, Uri = {1}", Name, string.Join(",", Uri));
+            return string.Format("(ArtistModel Name = {0}, Uri = {1}", Name, string.Join(",", Uri??new []{""}));
         }
     }
 }

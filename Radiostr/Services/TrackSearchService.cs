@@ -135,7 +135,7 @@ namespace Radiostr.Services
 
             if (uri == null) return 0;
 
-            var result = await _repository.Query<int>("select TrackId from TrackUri where Uri in (@uri)", new {uri});
+            var result = await _repository.Query<int>("select TrackId from TrackUri where Uri in @uri", new {uri});
             var items = result.ToList();
 
             if (!items.Any()) return 0;

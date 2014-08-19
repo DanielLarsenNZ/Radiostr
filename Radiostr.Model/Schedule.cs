@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Radiostr.Model.Extensions;
 
 namespace Radiostr.Model
 {
@@ -41,10 +42,40 @@ namespace Radiostr.Model
         /// The schedule events of this schedule.
         /// </summary>
         public ScheduleEvent[] Events { get; set; }
+
+        public override string ToString()
+        {
+            return
+                string.Format(
+                    "(Schedule StationId={0}, SequenceNumber={1}, StartTime={2}, StartTimePrecision={3}, StartsOn={4}, Duration={5}, Events={6})",
+                    StationId, SequenceNumber, StartTime, StartTimePrecision, StartsOn, Duration,
+                    Events == null ? "" : string.Format("(ScheduleEvent[] Length={0})", Events.Length));
+        }
     }
 
     public class ScheduleEvent
     {
+        /// <summary>
+        /// Creates a new schedule event for a schedule from a track.
+        /// </summary>
+        /// <param name="schedule">The schedule that this event is part of.</param>
+        /// <param name="track">The track for this event.</param>
+        public ScheduleEvent(Schedule schedule, TrackModel track)
+        {
+            if (schedule == null) throw new ArgumentNullException("schedule");
+            if (track == null) throw new ArgumentNullException("track");
+
+            track.Validate();
+
+            Track = track;
+            SequenceNumber = schedule.GetNextEventSequenceNumber();
+            Id = Guid.NewGuid();
+            StartTime = schedule.GetNextEventStartTime();
+            Duration = this.CalculateDuration();
+            Name = string.Format("{0} / {1}", track.Artist.Name, track.Title);
+            StartsOn = StartsOn.EndCue;
+        }
+
         /// <summary>
         /// Sequence hash used for ordering schedule events in this schedule.
         /// </summary>
@@ -67,7 +98,7 @@ namespace Radiostr.Model
         /// The schedule event Id.
         /// </summary>
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// A name for the schedule event.
@@ -94,6 +125,14 @@ namespace Radiostr.Model
         /// A track to play for this schedule event.
         /// </summary>
         public TrackModel Track { get; set; }
+
+        public override string ToString()
+        {
+            return
+                string.Format(
+                    "(ScheduleEvent SequenceNumber={0}, StartTime={1}, Duration={2}, Id={3}, Name={4}, Description={5}, StartsOn={6}, CueEventId={7}, Track={8})",
+                    SequenceNumber, StartTime, Duration, Id, Name, Description, StartsOn, CueEventId, Track);
+        }
     }
 
     /// <summary>
