@@ -7,7 +7,16 @@ using Radiostr.Repositories;
 
 namespace Radiostr.Services
 {
-    public class LibraryService : RadiostrService<Library>
+    public interface ILibraryService
+    {
+        Task<IEnumerable<Library>> GetList(dynamic param);
+        int Create(Library model);
+        Library Get(int id);
+        void Update(Library model);
+        void Delete(Library model);
+    }
+
+    public class LibraryService : RadiostrService<Library>, ILibraryService
     {
         internal LibraryService(ISecurityHelper securityHelper, IRepository<Library> repository) : base(securityHelper, repository)
         {

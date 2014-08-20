@@ -39,14 +39,17 @@ namespace Radiostr.Services
             
             // track URIs
 
+            // tags
+
 
             // project into TrackModel[]
 
             return tracks.Select(t => new TrackModel
             {
-                Artist = artists.First(a => a.Id == t.Id),
+                Artist = artists.First(a => a.Id == t.ArtistId),
                 Duration = t.Duration,
                 Title = t.Title,
+                
                 // TODO ...
             }).ToArray();
         }

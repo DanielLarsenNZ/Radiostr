@@ -118,6 +118,7 @@
     <Compile Include="Services\TrackSearchService.cs" />
     <Compile Include="Services\TrackModelService.cs" />
     <Compile Include="Services\TrackService.cs" />
+    <Compile Include="Services\TransmitterService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Radiostr.Data\Radiostr.Data.csproj">
@@ -127,6 +128,10 @@
     <ProjectReference Include="..\Radiostr.Model\Radiostr.Model.csproj">
       <Project>{d3a94cda-fa92-43ae-a6a7-b7538141e05a}</Project>
       <Name>Radiostr.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Radiostr.Storage\Radiostr.Storage.csproj">
+      <Project>{e24ae0ad-d71c-423c-8363-940ba2eb4e24}</Project>
+      <Name>Radiostr.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

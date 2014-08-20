@@ -228,6 +228,7 @@
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\LibraryController.cs" />
     <Compile Include="Controllers\StationController.cs" />
+    <Compile Include="Controllers\TxController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\ModelValidationFilter.cs" />
@@ -312,6 +313,7 @@
     <Content Include="TwitterOAuthSettings - example.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Tx\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />

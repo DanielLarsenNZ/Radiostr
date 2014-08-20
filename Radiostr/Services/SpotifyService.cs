@@ -73,10 +73,15 @@ namespace Radiostr.Services
             {
                 tracks.Add(new TrackModel
                 {
-                    Album = new AlbumModel { Name = item.track.album.name, Uri = item.track.album.uri },
-                    Artist = new ArtistModel { Name = item.track.artists[0].name, Uri = item.track.artists[0].uri },
+                    Album = new AlbumModel {Name = item.track.album.name, Uri = item.track.album.uri},
+                    Artist =
+                        new ArtistModel
+                        {
+                            Name = item.track.artists[0].name,
+                            Uri = new string[] {item.track.artists[0].uri}
+                        },
                     Duration = item.track.duration_ms,
-                    Uri = item.track.uri,
+                    Uri = new string[] {item.track.uri},
                     Title = item.track.name
                 });
             }

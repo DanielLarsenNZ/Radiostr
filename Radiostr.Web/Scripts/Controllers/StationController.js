@@ -63,4 +63,7 @@
         });
     };
 
+    $scope.startTxer = function() {
+        document.location = "/Tx/" + $scope.station.Id;
+    };
 }

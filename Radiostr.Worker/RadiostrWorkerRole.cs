@@ -45,7 +45,7 @@ namespace Radiostr.Worker
             try
             {
                 Trace.TraceInformation("RadiostrWorkerRole RoleEntryPoint Execute()");
-                await Task.WhenAll(ImportPlaylist(), GeneratePlaylist());
+                await Task.WhenAll(ImportPlaylist(), SelectSchedule());
             }
             catch (Exception ex)
             {
@@ -92,10 +92,10 @@ namespace Radiostr.Worker
             return AzureTableStorage.GetTableStorage(settings);
         }
 
-        private async Task GeneratePlaylist()
+        private async Task SelectSchedule()
         {
             // Get message
-            var message = await _queue.GetMessage(QueueNames.ImportPlaylist);
+            var message = await _queue.GetMessage(QueueNames.SelectSchedule);
             if (message == null) return;
 
             var service = SimpleScheduleSelector.GetService();
@@ -112,6 +112,7 @@ namespace Radiostr.Worker
                 var storage = GetTableStorage();
                 var entity = new ScheduleTableEntity(schedule);
                 await storage.Insert(TableNames.Schedule, entity);
+
             }
             catch (Exception ex)
             {
