@@ -82,6 +82,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Model\Extensions\ValidationExtensionsTests.cs" />
     <Compile Include="Model\TrackModelTests.cs" />
     <Compile Include="Services\ScheduleServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

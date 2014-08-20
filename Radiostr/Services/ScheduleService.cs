@@ -7,12 +7,12 @@ namespace Radiostr.Services
 {
     public interface IScheduleService
     {
-        Schedule CreateSchedule(string stationId, TrackModel[] tracks);
+        Schedule CreateSchedule(string stationId, IEnumerable<TrackModel> tracks);
     }
 
     public class ScheduleService : IScheduleService
     {
-        public Schedule CreateSchedule(string stationId, TrackModel[] tracks)
+        public Schedule CreateSchedule(string stationId, IEnumerable<TrackModel> tracks)
         {
             if (string.IsNullOrEmpty(stationId)) throw new ArgumentNullException("stationId");
             if (tracks == null) throw new ArgumentNullException("tracks");
@@ -34,15 +34,16 @@ namespace Radiostr.Services
                 var @event = new ScheduleEvent
                 {
                     Track = track,
-                    SequenceNumber = sequenceNumber++,
+                    SequenceNumber = ++sequenceNumber,
                     Id = Guid.NewGuid(),
-                    StartTime = startTime.Add(duration),
+                    StartTime = startTime,
                     Name = string.Format("{0} / {1}", track.Artist.Name, track.Title),
                     StartsOn = StartsOn.EndCue,
                     Duration = duration
                 };
 
                 events.Add(@event);
+                startTime = startTime.Add(@event.Duration);
             }
 
             schedule.Events = events.ToArray();

@@ -14,9 +14,14 @@ namespace Radiostr.Model.Extensions
         /// </summary>
         /// <param name="instance">An instance of an object with <see cref="System.ComponentModel.DataAnnotations"/> or 
         /// implementing <see cref="IValidatableObject "/></param>
-        public static void Validate(this object instance)
+        public static void Validate<T>(this T instance) where T:class
         {
-            if (instance == null) throw new ArgumentNullException("instance");
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance",
+                    string.Format("Instance of <{0}> cannot be null.", typeof (T).FullName));
+            }
+
             Validator.ValidateObject(instance, new ValidationContext(instance));
         }
     }
