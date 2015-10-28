@@ -1,0 +1,15 @@
+{
+  "name": "",
+  "version": "0.0.1",
+  "description": "The librarian knows how to find a stream for the song you want.",
+  "main": "index.js",
+  "keywords": [
+    "swagger"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "swagger-tools": "0.8.*"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Radiostr Librarian",
+    "description": "The librarian knows how to find a stream for the song you want.",
+    "version": "1.0.0"
+  },
+  "produces": ["application/json"],
+  "host": "localhost:8080",
+  "basePath": "/v1",
+  "paths": {
+  
+  "/librarian/track/{artist}/{title}": {
+    
+    "get": {
+      "summary": "Get Tracks",
+      "description":"Gets metadata about a track that matches the query params.",
+      "x-swagger-router-controller": "Librarian",
+      "tags": ["Librarian"],
+      "operationId": "librarianTrackArtistTitleGet",
+      "parameters": [
+        {
+  "name" : "artist",
+  "in" : "path",
+  "description" : "Name of Artist.",
+  "required" : true,
+  "type" : "string"
+},
+        {
+  "name" : "title",
+  "in" : "path",
+  "description" : "Title of Track.",
+  "required" : true,
+  "type" : "string"
+},
+        {
+  "name" : "album",
+  "in" : "query",
+  "description" : "Name of Album of Track.",
+  "required" : false,
+  "type" : "string"
+},
+        {
+  "name" : "duration",
+  "in" : "query",
+  "description" : "Duration of track in seconds.",
+  "required" : false,
+  "type" : "integer",
+  "format" : "int32"
+},
+        {
+  "name" : "year",
+  "in" : "query",
+  "description" : "Year of Track's release",
+  "required" : false,
+  "type" : "integer",
+  "format" : "int32"
+}
+        
+      ],
+      "responses": {
+        "200": {
+  "description" : "An array of Tracks",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/Track"
+    }
+  }
+}
+        ,
+        "default": {
+  "description" : "Unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/Error"
+  }
+}
+        
+        
+      }
+    } 
+    
+  } 
+  
+  }, "definitions": {
+  "Track": {
+  "type" : "object",
+  "properties" : {
+    "artist" : {
+      "type" : "string",
+      "description" : "Name of Artist."
+    },
+    "title" : {
+      "type" : "string",
+      "description" : "Title of Track."
+    },
+    "album" : {
+      "type" : "string",
+      "description" : "Name of Album of Track."
+    },
+    "year" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "Year of Track's release."
+    },
+    "duration" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "Duration of the Track in seconds."
+    },
+    "bpm_avg" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "Average BPM of the Track."
+    },
+    "key" : {
+      "type" : "string",
+      "description" : "Musical Key of the Track."
+    }
+  }
+},"Asset": {
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "Name of type of Asset, e.g. beatgrid."
+    },
+    "uri" : {
+      "type" : "string",
+      "description" : "URI for retrieval of Asset."
+    },
+    "method" : {
+      "type" : "string",
+      "description" : "HTTP Method for retrieval, i.e. GET | POST."
+    }
+  }
+},"Stream": {
+  "type" : "object",
+  "properties" : {
+    "uri" : {
+      "type" : "string",
+      "description" : "URI for retrieval of Stream."
+    },
+    "method" : {
+      "type" : "string",
+      "description" : "HTTP Method for retrieval, i.e. GET | POST."
+    },
+    "content-type" : {
+      "type" : "string",
+      "description" : "Content type of stream, e.g. audio/mp3"
+    },
+    "bitrate_kbps" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "Bitrate of stream in Kbps."
+    },
+    "is_local" : {
+      "type" : "boolean",
+      "description" : "When true, stream is local to user."
+    },
+    "priority" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "An absolute integer that describes the order of preference for using this stream. Zero is the highest preference, i.e. try to use lowest number first."
+    },
+    "duration_ms" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "The duration of the stream in milliseconds."
+    },
+    "file_hash" : {
+      "type" : "string",
+      "description" : "Hash code of the raw PCM data as an identifier (if available)"
+    }
+  }
+},"Error": {
+  "type" : "object",
+  "properties" : {
+    "code" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "fields" : {
+      "type" : "string"
+    }
+  }
+}
+  }
+}
